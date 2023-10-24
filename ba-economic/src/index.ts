@@ -6,7 +6,7 @@ import { cookie } from "@elysiajs/cookie";
 import { jwt } from "@elysiajs/jwt";
 const app = new Elysia()
   .use(swagger())
-  .group("/api", (app) =>
+  .group("/api", (app: any) =>
     app
       .use(
         jwt({

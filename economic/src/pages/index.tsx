@@ -1,11 +1,5 @@
-const Pages = ({ }) => {  
-  return (
-    <>
-      <section className="flex flex-col items-center gap-y-5">
-          <p>No results found.</p>
-      </section>
-    </>
-  );
-};
+import { Base } from 'Components/templates/Base';
 
-export default Pages;
+const Index = () => <Base />;
+
+export default Index;
