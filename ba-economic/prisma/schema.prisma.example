@@ -1,0 +1,612 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["tracing"]
+}
+
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model Posts {
+  id           String  @id @default(uuid())
+  title        String
+  text         String
+  is_published Boolean @default(false)
+}
+
+model Post {
+  id               String     @id @default(uuid())
+  created_at       DateTime   @default(now())
+  updated_at       DateTime   @updatedAt
+  title            String
+  published        Boolean     @default(false)
+  author           User        @relation(fields: [author_id], references: [id])
+  author_id        String
+  categories       PostCategory[]
+  deleted_at       DateTime
+}
+
+model Comment {
+  id               String     @id @default(uuid())
+  created_at       DateTime   @default(now())
+  updated_at       DateTime   @updatedAt
+  title            String
+  message          String
+  published        Boolean     @default(false)
+  author           User        @relation(fields: [author_id], references: [id])
+  author_id        String
+  deleted_at       DateTime
+}
+
+model PostCategory {
+  id               String @id @default(uuid())
+  name             String
+  posts            Post[]
+  created_at       DateTime
+  updated_at       DateTime
+  deleted_at       DateTime
+}
+
+model Address {
+  id                    String  @id @default(uuid())
+  stress_address        String
+  house_no              String
+  state                 String
+  landmark              String
+  lat                   String
+  lon                   String
+  city   City           @relation(fields: [city_id], references: [id])
+  city_id               String
+  created_at            DateTime
+  updated_at            DateTime
+  deleted_at            DateTime
+}
+
+model City {
+  id                  String @id @default(uuid())
+  name                String
+  country   Country   @relation(fields: [country_id], references: [id])
+  country_id          String
+  created_at          DateTime
+  updated_at          DateTime
+  deleted_at          DateTime
+}
+
+model IpAddress {
+  id                  String @id @default(uuid())
+  ip1                 String
+  ip2                 String
+  ip3                 String
+  ip4                 String
+  created_at          DateTime
+  updated_at          DateTime
+  deleted_at          DateTime
+}
+
+model Country {
+  id               String @id @default(uuid())
+  name             String
+  created_at       DateTime
+  updated_at       DateTime
+  deleted_at       DateTime
+}
+
+model User {
+  id                      String  @id @default(uuid())  
+  user_name               String
+  avatar                  String
+  first_name              String
+  last_name               String
+  full_name               String
+  age                     Int
+  gender                  String
+  type                    String
+  sign_up_at              DateTime
+  last_login              DateTime
+  address Address         @relation(fields: [address_id], references: [id])
+  address_id              String  @unique
+  ip_address IpAddress    @relation(fields: [ip_address_id], references: [id])
+  ip_address_id           String
+  password Password       @relation(fields: [password_id], references: [id])
+  password_id             String  @unique
+  created_at              DateTime
+  updated_at              DateTime
+  deleted_at              DateTime
+}
+
+model Password {
+  id                   String  @id @default(uuid())
+  hashed_password      String
+  reset_in_progress    String
+  reset_code           String
+  reset_expires        DateTime
+  active               Boolean
+  created_at           DateTime
+  updated_at           DateTime
+  deleted_at           DateTime
+}
+
+model PageVisit {
+  id                         String  @id @default(uuid())
+  user   User                @relation(fields: [user_id], references: [id])
+  user_id Int                @unique
+  visit_start                DateTime
+  visit_last_interaction     DateTime
+  url                        DateTime    
+  referrer_url               String
+  created_at                 DateTime
+  updated_at                 DateTime
+  deleted_at                 DateTime
+}
+
+model Contact {
+  id             String  @id @default(uuid())
+  user   User    @relation(fields: [user_id], references: [id])
+  user_id Int    @unique
+  email          String
+  phone_no       String
+  created_at     DateTime
+  updated_at     DateTime
+  deleted_at     DateTime
+}
+
+model Profile {
+  id             String  @id @default(uuid())
+  bio            String
+  user   User    @relation(fields: [user_id], references: [id])
+  user_id Int    @unique
+  created_at     DateTime
+  updated_at     DateTime
+  deleted_at     DateTime
+}
+
+model Merchant {
+  id               String  @id @default(uuid())  
+  website          String
+  notify_url       String
+  user   User      @relation(fields: [user_id], references: [id])
+  user_id Int      @unique
+  created_at       DateTime
+  updated_at       DateTime
+  deleted_at       DateTime
+}
+
+model MerchantCurrency {
+  id                     String  @id @default(uuid())  
+  website                String
+  notify_url             String
+  merchant   Merchant    @relation(fields: [merchant_id], references: [id])
+  merchant_id            Int    @unique
+  currency   Currency    @relation(fields: [currency_id], references: [id])
+  currency_id            Int    @unique
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model Currency {
+  id               String  @id @default(uuid())  
+  name             String
+  abbreviation     String
+  created_at       DateTime
+  updated_at       DateTime
+  deleted_at       DateTime
+}
+
+model Wallet {
+  id                      String  @id @default(uuid())
+  address                 String
+  user   User             @relation(fields: [user_id], references: [id])
+  user_id                 Int    @unique
+  currency   Currency     @relation(fields: [currency_id], references: [id])
+  currency_id             Int    @unique
+  created_at              DateTime
+  updated_at              DateTime
+  deleted_at              DateTime
+}
+
+model Payment {
+  id                      String  @id @default(uuid())
+  address                 String
+  user   User             @relation(fields: [user_id], references: [id])
+  user_id                 String    @unique
+  oder Order              @relation(fields: [oder_id], references: [id]) 
+  oder_id                 String
+  price_usd               String
+  success_url             String
+  cancel_url              String
+  created_at              DateTime
+  updated_at              DateTime
+  deleted_at              DateTime
+}
+
+model Transaction {
+  id                      String  @id @default(uuid())
+  description             String
+  payment   Payment       @relation(fields: [payment_id], references: [id])
+  payment_id              String    @unique
+  txn_id                  String
+  dest_tag                String
+  status                  String
+  confirms                String
+  amount                  String
+  network_free            String
+  wallet   Wallet         @relation(fields: [wallet_id], references: [id])
+  wallet_id               Int    @unique
+  created_at              DateTime
+  updated_at              DateTime
+  deleted_at              DateTime
+}
+
+model Restaurant {
+  id              String  @id @default(uuid())
+  name            String
+  website         String
+  desc            String
+  address Address @relation(fields: [address_id], references: [id])
+  address_id      String  @unique
+  created_at      DateTime
+  updated_at      DateTime
+  deleted_at      DateTime
+}
+
+model Menu {
+  id                    String  @id @default(uuid())
+  name                  String
+  type                  String
+  meal_type             String
+  cuisine_type          String
+  description           String
+  media                 String
+  banner                String
+  price                 String
+  products              Product[]
+  Restaurant Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant_id         String  @unique
+  created_at            DateTime
+  updated_at            DateTime
+  deleted_at            DateTime
+}
+
+model Notification {
+  id              String  @id @default(uuid())  
+  message         String
+  order Order     @relation(fields: [order_id], references: [id])
+  order_id        String
+  user User       @relation(fields: [user_id], references: [id])
+  user_id         String
+  created_at      DateTime
+  updated_at      DateTime
+  deleted_at      DateTime
+}
+
+model Cart {
+  id                     String  @id @default(uuid())  
+  menu Menu              @relation(fields: [menu_id], references: [id])
+  menu_id                String
+  user User              @relation(fields: [user_id], references: [id])
+  user_id                String
+  Restaurant Restaurant  @relation(fields: [restaurant_id], references: [id])
+  restaurant_id          String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model ProductCategory {
+  id                     String  @id @default(uuid())
+  name                   String
+  description            String 
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model Product {
+  id                              String    @id     @default(uuid())
+  name                            String
+  description                     String
+  price                           Int
+  merchant Merchant               @relation(fields: [merchant_id], references: [id])
+  merchant_id                     String 
+  menu Menu                       @relation(fields: [menu_id], references: [id])
+  menu_id                         String 
+  address Address                 @relation(fields: [address_id], references: [id])
+  address_id                      String  @unique   
+  product_type      ProductType   @relation(fields: [product_type_id], references: [id])
+  product_type_id                 String  @unique
+  created_at                      DateTime
+  updated_at                      DateTime
+  deleted_at                      DateTime
+}
+
+model ProductType {
+  id                     String  @id @default(uuid())
+  available              Boolean
+  stock                  String
+  price                  Int
+  description            String 
+  dimension              String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model OrderItem {
+  id                   String  @id @default(uuid())  
+  product Product      @relation(fields: [product_id], references: [id])
+  product_id           String
+  quantity             Int 
+  created_at           DateTime
+  updated_at           DateTime
+  deleted_at           DateTime
+}
+
+model Order {
+  id                     String  @id @default(uuid())  
+  user User              @relation(fields: [user_id], references: [id])
+  user_id                String 
+  cart Cart              @relation(fields: [cart_id], references: [id]) 
+  cart_id                String  
+  oder_item OrderItem    @relation(fields: [oder_item_id], references: [id]) 
+  oder_item_id           String
+  order_status           String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model Delivery {
+  id                  String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  delivery_attempted     Int  
+  deliver_guy User?       @relation("DeliveryGuy", fields: [deliver_guy_id], references: [id])
+  deliver_guy_id         String?  @map("deliver_guy") @db.Uuid
+  customer User          @relation(("Customer", fields: [customer_id], references: [id])
+  customer_id            String  @map("customer") @db.Uuid
+  order Order            @relation(fields: [order_id], references: [id])
+  order_id               String
+  bill Bill              @relation(fields: [bill_id], references: [id])
+  bill_id                String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+  @@unique([customer_id, id])
+  @@map("deliverys")
+}
+
+model Bill {
+  id             String  @id @default(uuid())  
+  total_cost     String  
+  couple_code    String
+  tax            String
+  discount       String
+  created_at     DateTime
+  updated_at     DateTime
+  deleted_at     DateTime
+}
+
+model Page {
+  id               String  @id @default(uuid())  
+  name             String  
+  position         String
+  position_temp    String
+  num_of_column    String
+  created_at       DateTime
+  updated_at       DateTime
+  deleted_at       DateTime
+}
+
+model Collection {
+  id               String  @id @default(uuid())  
+  page Page        @relation(fields: [page_id], references: [id])
+  page_id          String
+  name             String  
+  position         String
+  position_temp    String
+  display_mode     String
+  sort_order       Int
+  created_at       DateTime
+  updated_at       DateTime
+  deleted_at       DateTime
+}
+
+model Bookmark {
+  id                         String  @id @default(uuid())  
+  user User                  @relation(fields: [user_id], references: [id])
+  user_id                    String
+  collection Collection      @relation(fields: [collection_id], references: [id]) 
+  collection_id              String
+  url                        String  
+  title                      String
+  description                String
+  icon                       String
+  position                   String
+  position_temp              String
+  created_at                 DateTime
+  updated_at                 DateTime
+  deleted_at                 DateTime
+} 
+
+model Review {
+  id                     String  @id @default(uuid())
+  name                   String
+  description            String 
+  user User              @relation(fields: [user_id], references: [id])
+  user_id                String
+  product Product        @relation(fields: [product_id], references: [id])
+  product_id             String
+  oder Order             @relation(fields: [oder_id], references: [id]) 
+  oder_id                String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model SupplierCategory {
+  id                     String  @id @default(uuid())
+  name                   String
+  description            String 
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model Supplier {
+  id                                      String  @id @default(uuid())
+  name                                    String
+  description                             String 
+  supplier_category SupplierCategory      @relation(fields: [supplier_category_id], references: [id])
+  supplier_category_id                    String 
+  active                                  Boolean
+  created_at                              DateTime
+  updated_at                              DateTime
+  deleted_at                              DateTime
+}
+
+model SupplierMessage {
+  id                     String  @id @default(uuid())
+  message                String
+  description            String 
+  supplier Supplier      @relation(fields: [supplier_id], references: [id])
+  supplier_id            String 
+  active                 Boolean
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model UserRoles {
+  id Int @id @default(autoincrement())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id") @db.Uuid
+
+  role   Role @relation(fields: [roleId], references: [id])
+  roleId Int  @map("role_id")
+
+  @@unique([userId, roleId])
+  @@map("user_role")
+}
+
+model Role {
+  id   Int     @id @default(autoincrement())
+  name String?
+
+  userRoles UserRoles[]
+  @@map("roles")
+}
+
+model File {
+  id                  String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name                String
+  mimeType            String   @map("mime_type")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+  user_id             String @map("user_id") @db.Uuid
+  user                User   @relation("userIdFiles", fields: [user_id], references: [id])
+  created_by          User   @relation("createdByFile", fields: [created_by_id], references: [id])
+  created_by_id       String @map("created_by") @db.Uuid
+  updated_by          User?   @relation("updatedByFile", fields: [updated_by_id], references: [id])
+  updated_by_id       String? @map("updated_by") @db.Uuid
+  @@unique([user_id, id])
+  @@map("files")
+}
+
+model FileOption {
+  id                     String  @id @default(uuid())
+  type                   String
+  name                   String
+  description            String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model Origination {
+  id                     String  @id @default(uuid())
+  origination_type       OriginationType?   @relation(fields: [origination_type_id], references: [id])
+  origination_type_id    String
+  name                   String
+  description            String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model OriginationType {
+  id                     String  @id @default(uuid())
+  name                   String
+  origination            Origination[]
+  description            String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model GrandeParalelo {
+  id                     String  @id @default(uuid())
+  name                   String
+  user User              @relation(fields: [user_id], references: [id])
+  user_id                String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model Grade {
+  id                     String  @id @default(uuid())
+  name                   String
+  level_grade            LevelGrade?   @relation(fields: [level_grade_id], references: [level_grade_id])
+  level_grade_id         String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model LevelGrade {
+  level_grande_id        String  @id @default(uuid())
+  name                   String
+  principle              String  
+  grade                  Grade[]
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model SubjectGrade {
+  grade         Grade     @relation(fields: [grade_id], references: [id])
+  grade_id      String // relation scalar field (used in the `@relation` attribute above)
+  subject       Subject @relation(fields: [subject_id], references: [id])
+  subject_id    String // relation scalar field (used in the `@relation` attribute above)
+  created_at    DateTime @default(now())
+
+  @@id([grade_id, subject_id])
+}
+
+model Subject {
+  id                     String  @id @default(uuid())
+  name                   String
+  abbreviation           String
+  area                   Area?   @relation(fields: [area_id], references: [id])
+  area_id                String
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
+
+model Area {
+  id                     String  @id @default(uuid())
+  name                   String
+  subject                Subject[]
+  created_at             DateTime
+  updated_at             DateTime
+  deleted_at             DateTime
+}
