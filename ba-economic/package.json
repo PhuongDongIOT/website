@@ -11,14 +11,18 @@
     "@elysiajs/cookie": "^0.7.0",
     "@elysiajs/jwt": "^0.7.0",
     "@elysiajs/swagger": "^0.7.3",
-    "@prisma/client": "^5.4.2",
     "config": "^3.3.9",
     "elysia": "latest",
-    "prisma": "^5.4.2"
+    "esm": "^3.2.25",
+    "prisma": "^5.5.1"
   },
   "devDependencies": {
+    "@prisma/client": "^5.5.1",
     "@types/config": "^3.3.2",
     "bun-types": "latest"
   },
-  "module": "src/index.js"
+  "module": "src/index.js",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
 }

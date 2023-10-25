@@ -4,23 +4,30 @@ import { articles } from "./modules/articles";
 import { swagger } from "@elysiajs/swagger";
 import { cookie } from "@elysiajs/cookie";
 import { jwt } from "@elysiajs/jwt";
-const app = new Elysia()
+import adapter from './adapter';
+
+const App = new Elysia()
   .use(swagger())
-  .group("/api", (app: any) =>
-    app
-      .use(
-        jwt({
-          name: "jwt",
-          secret: Bun.env.JWT_SECRET!,
-        })
-      )
-      .use(cookie())
-      .use(auth)
-      .use(articles)
+  .group("/api", (app) => adapter(app)
   )
   .listen(8080);
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running at ${App.server?.hostname}:${App.server?.port}`
 );
 
-export type ElysiaApp = typeof app
+export type ElysiaApp = typeof App
+
+// import { Elysia, t } from 'elysia'
+
+// const app = new Elysia()
+//     .get('/', () => 'Hi Elysia')
+//     .get('/id/:id', ({ params: { id } }) => id)
+//     .post('/mirror', ({ body }) => body, {
+//         body: t.Object({
+//             id: t.Number(),
+//             name: t.String()
+//         })
+//     })
+//     .listen(8080)
+
+// export type App = typeof app
