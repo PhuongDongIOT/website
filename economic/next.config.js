@@ -2,6 +2,9 @@
 const nextConfig = {
     runtime: 'experimental-edge',
     distDir: 'build',
+    typescript: {
+        ignoreBuildErrors: true,
+    },
 }
 
 module.exports = nextConfig

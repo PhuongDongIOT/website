@@ -1,3 +1,3 @@
-const Index = () => <h1>500 - Server-side error occurred</h1>
+const PageNotFoundError = () => <h1>500 - Server-side error occurred</h1>
 
-export default Index;
+export default PageNotFoundError;

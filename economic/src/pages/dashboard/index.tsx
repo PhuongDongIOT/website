@@ -1,8 +1,11 @@
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import { edenTreaty } from '@elysiajs/eden'
-import { App } from '../../../ba-economic/src/index'
+import { App } from '../../../../ba-economic/src/index'
 import chalk from 'chalk'
- 
+
+import ErrorBoundary from 'Components/error/ErrorBoundary'
+import ErrorDashboard from './error'
+
 type Repo = {
   name: string
   stargazers_count: number
@@ -40,35 +43,40 @@ export async function http<T>(): Promise<T> {
 }
  
 export const getStaticProps = (async (context) => {
-  const data: Pong = await connectEdenTreaty<Pong>()
+  const repo: Repo = await http<Repo>()
   const log = console.log;
   // console.log(data)
   const warning = chalk.hex('#FFA500'); // Orange color
-  log(warning(data))
+  log(warning('hihi'))
   const prop : Prop = {
     props: {
-      pong: data
+      repo: repo
     }
   }
   return prop;
 }) satisfies GetStaticProps<{
-  pong: Pong,
+  repo: Repo
 }>
  
 export default function Index({
+  repo,
   pong,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const typeResponse = typeof pong  
-  if(typeResponse === 'string') {
+  const typeResponse = typeof repo  
+  if(typeResponse !== 'string') {
     return (
-      <>
+      <ErrorBoundary>
         <div className="box-border h-32 w-32 p-2 border-4 md:box-content hover:box-content">
           <p>Excluding borders and padding</p>
         </div>
-      </>
+      </ErrorBoundary>
     )
   } else {
-    return pong
-  }
+    return (
+      <div className="box-border h-32 w-32 p-2 border-4 md:box-content hover:box-content">
+        <p>Excluding borders and padding</p>
+      </div>
+    )
+  } 
 }
 

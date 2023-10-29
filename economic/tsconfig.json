@@ -26,11 +26,20 @@
       "@/*": [
         "./src/*"
       ],
+      "Layout/*": [
+        "./src/layouts/*"
+      ],      
       "Components/*": [
         "./src/components/*"
       ],
       "Utils/*": [
         "./src/utils/*"
+      ],      
+      "State/*": [
+        "./src/states/*"
+      ],
+      "Style/*": [
+        "./src/styles/*"
       ]
     }
   },
