@@ -40,6 +40,9 @@
       ],
       "Style/*": [
         "./src/styles/*"
+      ],
+      "Types/*": [
+        "./src/types/*"
       ]
     }
   },

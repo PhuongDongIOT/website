@@ -17,6 +17,7 @@
 
 // export type ElysiaApp = typeof App
 
+// server.ts
 import { Elysia, t } from 'elysia'
 
 const app = new Elysia()

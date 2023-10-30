@@ -19,7 +19,8 @@ type Pong = String
 
 export async function connectEdenTreaty<T>(): Promise<T> {
   const app: any = edenTreaty<App & any>('http://localhost:8080')
-  const { data: pong, error } = await app.get()
+  const { data: pong, error } = await app['index'].get()
+
   if (!pong || error) {
     throw new Error("Page Not Found 404")
   }
@@ -28,14 +29,11 @@ export async function connectEdenTreaty<T>(): Promise<T> {
 
 export async function http<T>(): Promise<T> {
   const response = await fetch('https://api.github.com/repos/vercel/next.js')
-  // const app: any = edenTreaty<App & any>('http://localhost:8080')
+
   const dataResponse: T | undefined = await response.json()
   if (!response.ok || !dataResponse) {
     throw new Error("Page Not Found 404")
   }
-  // const { data: pong } = await app.get()
-  // const repo: (T | any) = await res.json()
-  // const response: Prop = { props: { repo, pong } }
   return dataResponse
 }
  

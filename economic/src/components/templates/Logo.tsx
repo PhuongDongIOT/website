@@ -1,4 +1,4 @@
-import { AppConfig } from 'Utils/AppConfig';
+import { AppConfig } from '@/utils/configs/AppConfig';
 
 type ILogoProps = {
   xl?: boolean;
