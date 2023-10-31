@@ -4,25 +4,28 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
-    "prisma": "bun run --watch src/index.ts",
-    "prisma:migrate": "bunx prisma migrate dev --name init"
+    "prisma": "prisma init",
+    "prisma:init": "bunx prisma init --datasource-provider sqlite",
+    "prisma:migrate": "bunx prisma migrate dev --name init",
+    "prisma:generate": "bunx prisma generate"
   },
   "dependencies": {
     "@elysiajs/cookie": "^0.7.0",
     "@elysiajs/jwt": "^0.7.0",
     "@elysiajs/swagger": "^0.7.3",
+    "@prisma/client": "^5.5.2",
     "config": "^3.3.9",
     "elysia": "latest",
     "esm": "^3.2.25",
-    "prisma": "^5.5.1"
+    "prisma": "^5.5.2"
   },
   "devDependencies": {
-    "@prisma/client": "^5.5.1",
     "@types/config": "^3.3.2",
     "bun-types": "latest"
   },
   "module": "src/index.js",
   "peerDependencies": {
     "typescript": "^5.0.0"
-  }
+  },
+  "type": "module"
 }
