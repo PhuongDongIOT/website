@@ -1,34 +1,52 @@
-// import Elysia from "elysia";
-// import { auth } from "~modules/auth";
-// import { articles } from "./modules/articles";
-// import { swagger } from "@elysiajs/swagger";
-// import { cookie } from "@elysiajs/cookie";
-// import { jwt } from "@elysiajs/jwt";
-// import adapter from './adapter';
-
-// const App = new Elysia()
-//   .use(swagger())
-//   .group("/api", (app) => adapter(app)
-//   )
-//   .listen(8080);
-// console.log(
-//   `🦊 Elysia is running at ${App.server?.hostname}:${App.server?.port}`
-// );
-
-// export type ElysiaApp = typeof App
-
-// server.ts
 import { Elysia, t } from 'elysia'
+import { cookie } from '@elysiajs/cookie'
+import { swagger } from '@elysiajs/swagger'
+
+import { auth, post } from './modules'
 
 const app = new Elysia()
-    .get('/', () => 'Hi Elysia')
-    .get('/id/:id', ({ params: { id } }) => id)
-    .post('/mirror', ({ body }) => body, {
-        body: t.Object({
-            id: t.Number(),
-            name: t.String()
+    .use(
+        swagger({
+            documentation: {
+                info: {
+                    title: 'Elysia Supabase Authentication',
+                    version: '0.3.0'
+                },
+                tags: [
+                    {
+                        name: 'Authorized',
+                        description:
+                            "Need a 'access_token' and 'refresh_token' cookie for authorization"
+                    },
+                    {
+                        name: 'Authentication',
+                        description: 'For user authentication'
+                    }
+                ]
+            }
         })
-    })
-    .listen(8080)
+    )
+    .use(auth)
+    .use(post)
+    .listen(3000)
 
-export type App = typeof app
+console.log(
+    `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+)
+
+
+// server.ts
+// import { Elysia, t } from 'elysia'
+
+// const app = new Elysia()
+//     .get('/', () => 'Hi Elysia')
+//     .get('/id/:id', ({ params: { id } }) => id)
+//     .post('/mirror', ({ body }) => body, {
+//         body: t.Object({
+//             id: t.Number(),
+//             name: t.String()
+//         })
+//     })
+//     .listen(8080)
+
+// export type App = typeof app
