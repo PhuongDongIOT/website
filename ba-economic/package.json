@@ -1,6 +1,8 @@
 {
   "name": "ba-economic",
-  "version": "1.0.50",
+  "version": "1.0.50", 
+  "title": "The BED Stack",
+  "description": "A RealWorld example for an app in the backend created with Bun, Elysia, and DrizzleORM.",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
