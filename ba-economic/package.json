@@ -16,6 +16,7 @@
     "@elysiajs/jwt": "^0.7.0",
     "@elysiajs/swagger": "^0.7.3",
     "@prisma/client": "^5.5.2",
+    "@sinclair/typebox": "^0.31.23",
     "@supabase/supabase-js": "^2.38.4",
     "config": "^3.3.9",
     "elysia": "latest",
