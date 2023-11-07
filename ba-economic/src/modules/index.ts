@@ -1,2 +1,1 @@
-export { auth } from './auth'
-export { post } from './post'
+export { usersPlugin } from './users/users.plugin'

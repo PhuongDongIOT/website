@@ -1,5 +1,7 @@
 {
   "name": "ba-economic",
+  "title": "ba-economic",
+  "description": "ba-economic",
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
