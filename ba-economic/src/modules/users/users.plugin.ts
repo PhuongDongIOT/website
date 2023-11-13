@@ -1,11 +1,8 @@
 import { Elysia } from 'elysia';
 import { setupUsers } from './users.module';
 import { createContext } from '~libs/connect.prisma'
-import {
-  InsertUserSchema,
-  ReturnedUserSchema,
-  ReturnedArrayUserSchema,
-} from './users.schema';
+import { usersPluginRest } from './users.plugin.rest'
+import { usersPluginStream } from './users.plugin.stream'
 
 export const usersPlugin = new Elysia()
   .use(request => setupUsers(createContext(request)))
@@ -18,25 +15,6 @@ export const usersPlugin = new Elysia()
     },
     (app) =>
       app
-        .get(
-          '',
-          async ({ request, store } : any) => store.usersService.findAllUser(),
-          {
-            response: ReturnedArrayUserSchema,
-            detail: {
-              summary: 'Detail',
-            },
-          },
-        )
-        .post(
-          '',
-          ({ body, store } : any) => store.usersService.createUser(body.user,),
-          {
-            body: InsertUserSchema,
-            response: ReturnedUserSchema,
-            detail: {
-              summary: 'Register',
-            },
-          },
-        )
+        .use(usersPluginRest)
+        .use(usersPluginStream)
   );

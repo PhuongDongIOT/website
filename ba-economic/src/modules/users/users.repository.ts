@@ -14,7 +14,7 @@ export class UsersRepository {
 
     async findAllUser() {
         const allUser = await this.context.prisma.user.findMany()
-        console.log(allUser)
+        
         return allUser;
     }
 }

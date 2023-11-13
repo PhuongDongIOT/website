@@ -34,7 +34,6 @@ export class UsersService {
                 email: user.email,
             }
         });
-
         return result
     }
 
