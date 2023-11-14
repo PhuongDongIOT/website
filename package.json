@@ -1,0 +1,1 @@
+{ "dependencies": { "@elysiajs/cors": "^0.7.1", "@elysiajs/cron": "^0.7.0" } }

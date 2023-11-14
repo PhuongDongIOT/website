@@ -1,16 +1,20 @@
 import { Elysia, t as T } from 'elysia';
 import { cors } from "@elysiajs/cors";
-import { compile as c, trpc } from "@elysiajs/trpc";;
+import { cookie } from '@elysiajs/cookie'
+import { jwt } from '@elysiajs/jwt'
+import { compile as c, trpc } from "@elysiajs/trpc";
+import { swagger } from '@elysiajs/swagger';
 import { initTRPC } from "@trpc/server";
 import { staticPlugin } from '@elysiajs/static';
 import { Type } from '@sinclair/typebox';
-import { swagger } from '@elysiajs/swagger';
 
-import { handleTrace } from './trace.module';
+import { cronPlugin } from './cron.module';
+import { tracePlugin } from './trace.module';
 import { 
   usersPlugin, 
   chatsPlugin, 
-  wsSocketsPlugin, 
+  wsSocketsPlugin,
+  graphqlsPlugin, 
   filesPlugin } from '~modules/index';
 import { title, version, description } from '../package.json';
 import {
@@ -38,7 +42,7 @@ export type Router = typeof router;
 
 export const setupApp = () => {
   return new Elysia()
-    .trace(handleTrace)
+    .use(tracePlugin)
     .error({
       AUTHENTICATION: AuthenticationError,
       AUTHORIZATION: AuthorizationError,
@@ -59,6 +63,15 @@ export const setupApp = () => {
     )
     .use(staticPlugin())
     .use(cors())
+    .use(cookie())
+    .use(
+      jwt({
+          name: 'jwt',
+          secret: 'Fischl von Luftschloss Narfidort'
+      })
+    )
+    .use(cronPlugin)
+    .use(graphqlsPlugin)
     .use(wsSocketsPlugin)
     .group('/api', (app) => app
       .use(usersPlugin)
