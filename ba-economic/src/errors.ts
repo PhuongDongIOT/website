@@ -6,7 +6,7 @@ export class AuthenticationError extends Error {
   constructor(public message: string) {
     super(message);
   }
-}
+};
 
 export class AuthorizationError extends Error {
   public status = 403;
@@ -14,7 +14,7 @@ export class AuthorizationError extends Error {
   constructor(public message: string) {
     super(message);
   }
-}
+};
 
 export class BadRequestError extends Error {
   public status = 400;
@@ -22,7 +22,7 @@ export class BadRequestError extends Error {
   constructor(public message: string) {
     super(message);
   }
-}
+};
 
 export const ERROR_CODE_STATUS_MAP = new MapWithDefault<string, number>([
   ['PARSE', 400],

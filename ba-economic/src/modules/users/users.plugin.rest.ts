@@ -1,6 +1,6 @@
 import { Elysia } from 'elysia';
 import {
-  InsertUserSchema,
+  InsertUserSchemaElysia,
   ReturnedUserSchema,
   ReturnedArrayUserSchema,
 } from './users.schema';
@@ -10,17 +10,17 @@ export const usersPluginRest = new Elysia()
         '',
         async ({ request, store } : any) => store.usersService.findAllUser(),
         {
-        response: ReturnedArrayUserSchema,
-        detail: {
-            summary: 'Detail',
-        },
+          response: ReturnedArrayUserSchema,
+          detail: {
+              summary: 'Detail',
+          },
         },
     )
   .post(
     '',
     ({ body, store } : any) => store.usersService.createUser(body.user,),
     {
-      body: InsertUserSchema,
+      body: InsertUserSchemaElysia,
       response: ReturnedUserSchema,
       detail: {
         summary: 'Register',

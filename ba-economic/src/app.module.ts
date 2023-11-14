@@ -1,9 +1,17 @@
-import { compile as c, trpc } from "@elysiajs/trpc";
-import { initTRPC } from "@trpc/server";
 import { Elysia, t as T } from 'elysia';
-import { staticPlugin } from '@elysiajs/static'
+import { cors } from "@elysiajs/cors";
+import { compile as c, trpc } from "@elysiajs/trpc";;
+import { initTRPC } from "@trpc/server";
+import { staticPlugin } from '@elysiajs/static';
 import { Type } from '@sinclair/typebox';
 import { swagger } from '@elysiajs/swagger';
+
+import { handleTrace } from './trace.module';
+import { 
+  usersPlugin, 
+  chatsPlugin, 
+  wsSocketsPlugin, 
+  filesPlugin } from '~modules/index';
 import { title, version, description } from '../package.json';
 import {
   AuthenticationError,
@@ -12,10 +20,7 @@ import {
   ERROR_CODE_STATUS_MAP,
 } from './errors';
 
-import { usersPlugin } from '~modules/index';
 
-// the file name is in the spirit of NestJS, where app module is the device in charge of putting together all the pieces of the app
-// see: https://docs.nestjs.com/modules
 const t = initTRPC.create();
 const p = t.procedure;
 
@@ -28,13 +33,12 @@ const router = t.router({
     .input(c(Type.String()))
     .query(({ input }) => input),
 });
+
 export type Router = typeof router;
 
-/**
- * Add all plugins to the app
- */
 export const setupApp = () => {
   return new Elysia()
+    .trace(handleTrace)
     .error({
       AUTHENTICATION: AuthenticationError,
       AUTHORIZATION: AuthorizationError,
@@ -54,6 +58,11 @@ export const setupApp = () => {
       }),
     )
     .use(staticPlugin())
-    .group('/api', (app) => app.use(usersPlugin))
-    .group('/trc', (app) => app.use(trpc(router)));
+    .use(cors())
+    .use(wsSocketsPlugin)
+    .group('/api', (app) => app
+      .use(usersPlugin)
+      .use(filesPlugin))
+    .group('/ws', (app) => app.use(chatsPlugin))
+    .group('/trc', (app) => app.use(trpc(router)))
 };

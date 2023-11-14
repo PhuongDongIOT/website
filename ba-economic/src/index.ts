@@ -1,11 +1,12 @@
 import { Elysia } from 'elysia';
+
 import { setupApp } from './app.module';
 import { env } from './config.module';
 
 const app = new Elysia()
   .use(setupApp)
   .get('/', ({ set }: any) => {
-    set.redirect = '/swagger';
+    set.redirect = '/swagger'
   })
   .listen(env.APP_PORT ?? 3000);
 
