@@ -14,6 +14,8 @@ console.log(
   `🦊 Elysia is running! Access Swagger UI at http://${app.server?.hostname}:${app.server?.port}/swagger`,
 );
 
+export type App = typeof app
+
 // server.ts
 // import { Elysia, t } from 'elysia'
 

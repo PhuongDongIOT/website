@@ -14,5 +14,5 @@ const cronPlugin = new Elysia()
     )
 
 export {
-    cronPlugin,
+  cronPlugin,
 };

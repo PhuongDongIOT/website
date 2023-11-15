@@ -12,8 +12,10 @@
     "prisma:generate": "bunx prisma generate"
   },
   "dependencies": {
+    "@elysiajs/bearer": "^0.7.0",
     "@elysiajs/cookie": "^0.7.0",
     "@elysiajs/cors": "^0.7.1",
+    "@elysiajs/cron": "^0.7.0",
     "@elysiajs/graphql-yoga": "^0.7.1",
     "@elysiajs/jwt": "^0.7.0",
     "@elysiajs/static": "^0.7.1",

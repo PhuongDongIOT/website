@@ -27,6 +27,18 @@ export const usersPluginRest = new Elysia()
         },
       },
     )
+    .get('/sign', ({ bearer }) => bearer, {
+      beforeHandle({ bearer, set }) {
+          if (!bearer) {
+              set.status = 400
+              set.headers[
+                  'WWW-Authenticate'
+              ] = `Bearer realm='sign', error="invalid_request"`
+
+              return 'Unauthorized'
+          }
+      }
+    })
     .get('/sign/:name', async ({ jwt, cookie, setCookie, params }) => {
         setCookie('auth', await jwt.sign(params), {
             httpOnly: true,

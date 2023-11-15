@@ -38,26 +38,28 @@ export async function http<T>(): Promise<T> {
 }
  
 export const getStaticProps = (async (context) => {
-  const data: Pong = await connectEdenTreaty<Pong>()
+  const data: Repo = await http<Repo>()
   const log = console.log;
   // console.log(data)
   const warning = chalk.hex('#FFA500'); // Orange color
   log(warning(data))
   const prop : Prop = {
     props: {
-      pong: data
+      repo: data
     }
   }
   return prop;
 }) satisfies GetStaticProps<{
   pong: Pong,
+  repo: Repo,
 }>
  
 export default function Index({
   pong,
+  repo,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const typeResponse = typeof pong  
-  if(typeResponse === 'string') {
+  const typeResponse = typeof repo  
+  if(typeResponse === 'string'|| true) {
     return (
       <>
         <div className="box-border h-32 w-32 p-2 border-4 md:box-content hover:box-content">

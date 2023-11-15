@@ -4,12 +4,13 @@ import { cookie } from '@elysiajs/cookie'
 import { jwt } from '@elysiajs/jwt'
 import { compile as c, trpc } from "@elysiajs/trpc";
 import { swagger } from '@elysiajs/swagger';
+import { bearer } from '@elysiajs/bearer'
 import { initTRPC } from "@trpc/server";
 import { staticPlugin } from '@elysiajs/static';
 import { Type } from '@sinclair/typebox';
 
-import { cronPlugin } from './cron.module';
-import { tracePlugin } from './trace.module';
+import { cronPlugin } from './cron.plugin';
+import { tracePlugin } from './trace.plugin';
 import { 
   usersPlugin, 
   chatsPlugin, 
@@ -64,6 +65,7 @@ export const setupApp = () => {
     .use(staticPlugin())
     .use(cors())
     .use(cookie())
+    .use(bearer())
     .use(
       jwt({
           name: 'jwt',
