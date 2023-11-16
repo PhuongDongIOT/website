@@ -1,10 +1,9 @@
 import * as winston from 'winston';
-import * as colors from '@colors/colors/safe';
-const { LEVEL } = require('triple-beam');
+import chalk from 'chalk';
 import * as util from 'util';
 import { formatDate } from '~/utils/excute_type/date.utils';
 
-import { createLogger, transports, format } from "winston";
+import { transports, format } from "winston";
 
 export class Logger {
 
@@ -26,11 +25,11 @@ export class Logger {
 
     private name: string;
 
-    private colormap: any = {
-        debug: colors.gray,
-        info: colors.cyan, // (msg: string):string => { return msg; },
-        warn: colors.magenta,
-        error: colors.red
+    private : any = {
+        debug: chalk.gray,
+        info: chalk.cyan, // (msg: string):string => { return msg; },
+        warn: chalk.magenta,
+        error: chalk.red
     };
 
     constructor(name: string) {
@@ -83,11 +82,11 @@ export class Logger {
 
     public logprint(info: any): string {
 
-        const colorize: any = this.colormap[info[LEVEL]] ?? 'Level';
+        const colorize: any = chalk.bgCyan('Level');
 
-        let logmsg: string = `${colors.rainbow(`${info.timestamp}`)} [${colors.random(`${info.label}`)}] ${colorize}:: `;
+        let logmsg: string = `${chalk.blue(`${info.timestamp}`)} [${chalk.blue(`${info.label}`)}] ${colorize}:: `;
 
-        logmsg += colors.rainbow(Logger.toString(info.label));
+        logmsg += chalk.blue(Logger.toString(info.label));
 
         return logmsg;
     }

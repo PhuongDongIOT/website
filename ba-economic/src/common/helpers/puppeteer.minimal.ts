@@ -3,12 +3,18 @@ import * as puppeteer from 'puppeteer';
 // Create an async closure, this way we can use await everywhere
 const handleCrawData = async () => {
   // Create the browser instance. Pass an object to launch to configure the browser instance
-  const browser = await puppeteer.launch({headless: 'new'});
+  const defaultOptions = {
+      headless: 'new',
+  };
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    args: ['--no-sandbox'],
+  });
 
   // Create a new page, and navigate to the example site when it's ready
   const page = await browser.newPage();
   await page.goto('https://example.com');
-
+  await page.setCacheEnabled(false);
   // Take a screenshot of the page and save it into the root folder (saves on creating folders)
   await page.screenshot({ path: 'outputs/example.png' });
 
