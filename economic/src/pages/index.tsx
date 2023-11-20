@@ -1,7 +1,9 @@
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import { edenTreaty } from '@elysiajs/eden'
 import { App } from '../../../ba-economic/src/index'
-import chalk from 'chalk'
+import { logger } from 'Utils/logger.utils'
+
+import { HeroComponent } from 'Layout/Home';
  
 type Repo = {
   name: string
@@ -41,8 +43,7 @@ export const getStaticProps = (async (context) => {
   const data: Repo = await http<Repo>()
   const log = console.log;
   // console.log(data)
-  const warning = chalk.hex('#FFA500'); // Orange color
-  log(warning(data))
+  logger.info(data);
   const prop : Prop = {
     props: {
       repo: data
@@ -61,11 +62,7 @@ export default function Index({
   const typeResponse = typeof repo  
   if(typeResponse === 'string'|| true) {
     return (
-      <>
-        <div className="box-border h-32 w-32 p-2 border-4 md:box-content hover:box-content">
-          <p>Excluding borders and padding</p>
-        </div>
-      </>
+      <HeroComponent />
     )
   } else {
     return pong

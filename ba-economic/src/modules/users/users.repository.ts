@@ -8,7 +8,7 @@ export class UsersRepository {
         const newUser = await this.context.prisma.user.create({
             data: user,
           })
-        
+        console.log(newUser)
         return newUser;
     }
 

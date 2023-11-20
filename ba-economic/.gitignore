@@ -54,6 +54,8 @@ build/Release
 
 node_modules/
 jspm_packages/
+prisma/**/generator/
+prisma/**/migrations/
 
 # Snowpack dependency directory (https://snowpack.dev/)
 
@@ -174,3 +176,5 @@ dist
 # Finder (MacOS) folder config
 .DS_Store
 
+# bun lock
+bun.lockb

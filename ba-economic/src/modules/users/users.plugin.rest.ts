@@ -76,3 +76,6 @@ export const usersPluginRest = new Elysia()
 
         return `Hello ${profile.name}`
     })
+    .get('/info', async (): Promise<String> => {
+      return 'Hello User';
+  })

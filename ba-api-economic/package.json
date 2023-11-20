@@ -1,15 +1,63 @@
 {
-  "name": "ba-api-economic",
+  "name": "ba-economic",
+  "title": "ba-economic",
+  "description": "ba-economic",
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "prisma": "prisma init",
+    "prisma:init": "bunx prisma init --datasource-provider sqlite",
+    "prisma:pulldb": "npx prisma db pull --force",
+    "prisma:migrate:mongo": "bunx prisma migrate dev --name init  --schema prisma/mongo/schema.mongo.prisma",
+    "prisma:migrate:postgresql": "bunx prisma migrate dev --name init  --schema prisma/postgresql/schema.postgresql.prisma",
+    "prisma:migrate:sqlite": "bunx prisma migrate dev --name init  --schema prisma/sqlite/schema.sqlite.prisma",
+    "prisma:migrate": "bunx prisma migrate dev --name init  --schema prisma/postgresql/schema.postgresql.prisma & bunx prisma migrate dev --name init  --schema prisma/sqlite/schema.sqlite.prisma",
+    "prisma:generate:mongo": "bunx prisma generate --schema prisma/mongo/schema.mongo.prisma",
+    "prisma:generate:postgresql": "bunx prisma generate --schema prisma/postgresql/schema.postgresql.prisma",
+    "prisma:generate:sqlite": "bunx prisma generate --schema prisma/sqlite/schema.sqlite.prisma",
+    "prisma:generate": "bunx prisma generate --schema prisma/postgresql/schema.postgresql.prisma & bunx prisma generate --schema prisma/sqlite/schema.sqlite.prisma"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@colors/colors": "^1.6.0",
+    "@elysiajs/bearer": "^0.7.0",
+    "@elysiajs/cookie": "^0.7.0",
+    "@elysiajs/cors": "^0.7.1",
+    "@elysiajs/cron": "^0.7.0",
+    "@elysiajs/graphql-yoga": "^0.7.1",
+    "@elysiajs/jwt": "^0.7.0",
+    "@elysiajs/static": "^0.7.1",
+    "@elysiajs/stream": "^0.7.2",
+    "@elysiajs/swagger": "^0.7.3",
+    "@elysiajs/trpc": "^0.7.0",
+    "@elysiajs/websocket": "^0.2.8",
+    "@prisma/client": "^5.6.0",
+    "@sinclair/typebox": "^0.31.23",
+    "@supabase/supabase-js": "^2.38.4",
+    "@trpc/server": "^10.43.3",
+    "@types/nodemailer": "^6.4.14",
+    "@types/triple-beam": "^1.3.5",
+    "bullmq": "^4.13.2",
+    "chalk": "^5.3.0",
+    "config": "^3.3.9",
+    "elysia": "latest",
+    "esm": "^3.2.25",
+    "graphql": "^16.8.1",
+    "graphql-yoga": "^5.0.0",
+    "ioredis": "^5.3.2",
+    "nodemailer": "^6.9.7",
+    "prisma": "^5.6.0",
+    "puppeteer": "^21.5.2",
+    "triple-beam": "^1.4.1",
+    "winston": "^3.11.0"
   },
   "devDependencies": {
+    "@types/config": "^3.3.2",
     "bun-types": "latest"
   },
-  "module": "src/index.js"
+  "module": "src/index.js",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "type": "module"
 }

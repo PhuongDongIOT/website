@@ -1,27 +1,63 @@
 {
-  "name": "economic-ad",
+  "name": "economic",
   "version": "0.1.0",
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "bun lint"
+    }
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "test:e2e": "playwright test",
+    "lint": "next lint",
+    "prepare": "husky install",
+    "eslint": "eslint --ext .js,.jsx,.ts,.tsx --fix .",
+    "tsc": "tsc --noEmit",
+    "studio": "prisma studio",
+    "pre-commit": "lint-staged",
+    "dev:tina": "tinacms dev -c \"next dev\"",
+    "build:tina": "tinacms build && next build",
+    "start:tina": "tinacms build && next start"
   },
   "dependencies": {
+    "chalk": "^5.3.0",
+    "gray-matter": "^4.0.3",
+    "next": "13.5.6",
+    "next-seo": "^6.1.0",
     "react": "^18",
     "react-dom": "^18",
-    "next": "13.5.6"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@elysiajs/eden": "^0.7.4",
+    "@playwright/test": "^1.39.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10",
+    "bun-types": "latest",
+    "classnames": "^2.3.2",
+    "cypress": "^13.3.2",
+    "elysia": "^0.7.18",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.6",
+    "husky": "^8.0.3",
     "postcss": "^8",
     "tailwindcss": "^3",
-    "eslint": "^8",
-    "eslint-config-next": "13.5.6"
-  }
+    "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --fix",
+      "npx prettier --write"
+    ],
+    "*.{json,md,yaml,yml,scss,css}": [
+      "npx prettier --write"
+    ],
+    "*.js": "eslint --cache --fix"
+  },
+  "module": "index.ts"
 }

@@ -13,7 +13,7 @@ const app = new Elysia()
 console.log(
   `🦊 Elysia is running! Access Swagger UI at http://${app.server?.hostname}:${app.server?.port}/swagger`,
 );
-
+export default app
 export type App = typeof app
 
 // server.ts
