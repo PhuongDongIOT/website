@@ -1,7 +1,7 @@
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import { edenTreaty } from '@elysiajs/eden'
 import { App } from '../../../../ba-economic/src/index'
-import chalk from 'chalk'
+import { logger } from 'Utils/logger.utils'
 
 import ErrorBoundary from 'Components/error/ErrorBoundary'
 import ErrorDashboard from './error'
@@ -32,7 +32,7 @@ export async function connectEdenTreaty<T>(): Promise<T> {
 export async function http<T>(): Promise<T> {
   const response = await fetch('https://api.github.com/repos/vercel/next.js')
   // const app: any = edenTreaty<App & any>('http://localhost:8080')
-  const dataResponse: T | undefined = await response.json()
+  const dataResponse: T | any = await response.json()
   if (!response.ok || !dataResponse) {
     throw new Error("Page Not Found 404")
   }
@@ -43,11 +43,8 @@ export async function http<T>(): Promise<T> {
 }
  
 export const getStaticProps = (async (context) => {
-  const repo: Repo = await http<Repo>()
-  const log = console.log;
-  // console.log(data)
-  const warning = chalk.hex('#FFA500'); // Orange color
-  log(warning('hihi'))
+  const repo: Repo = await http<Repo>();  
+
   const prop : Prop = {
     props: {
       repo: repo
