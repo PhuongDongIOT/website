@@ -1,9 +1,9 @@
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import { edenTreaty } from '@elysiajs/eden'
 import { App } from '../../../../ba-economic/src/index'
-import { logger } from 'Utils/logger.utils'
+import { logger } from '~utils/logger.utils'
 
-import ErrorBoundary from 'Components/error/ErrorBoundary'
+import ErrorBoundary from '~components/error/ErrorBoundary'
 import ErrorDashboard from './error'
 
 type Repo = {

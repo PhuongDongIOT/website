@@ -1,9 +1,11 @@
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import { edenTreaty } from '@elysiajs/eden'
-import { App } from '../../../ba-economic/src/index'
-import { logger } from 'Utils/logger.utils'
+import { useSession, signIn, signOut } from "next-auth/react"
 
-import { HeroComponent } from 'Layout/Home';
+import { App } from '../../../ba-economic/src/index'
+import { logger } from '~utils/logger.utils'
+
+import { HeroComponent } from '~layout/Home';
  
 type Repo = {
   name: string
@@ -32,7 +34,7 @@ export async function connectEdenTreaty<T>(): Promise<T> {
 export async function http<T>(): Promise<T> {
   const response = await fetch('https://api.github.com/repos/vercel/next.js')
 
-  const dataResponse: T | undefined = await response.json()
+  const dataResponse: T | any = await response.json()
   if (!response.ok || !dataResponse) {
     throw new Error("Page Not Found 404")
   }
@@ -62,10 +64,27 @@ export default function Index({
   const typeResponse = typeof repo  
   if(typeResponse === 'string'|| true) {
     return (
-      <HeroComponent />
+      <ComponentLogin />
     )
   } else {
     return pong
   }
 }
 
+function ComponentLogin() {
+  const { data: session } = useSession()
+  if (session) {
+    return (
+      <>
+        Signed in as {session?.user?.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    )
+  }
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
+  )
+}

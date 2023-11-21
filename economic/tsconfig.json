@@ -23,27 +23,14 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "Layout/*": [
-        "./src/layouts/*"
-      ],      
-      "Components/*": [
-        "./src/components/*"
-      ],
-      "Utils/*": [
-        "./src/utils/*"
-      ],      
-      "State/*": [
-        "./src/states/*"
-      ],
-      "Style/*": [
-        "./src/styles/*"
-      ],
-      "Types/*": [
-        "./src/types/*"
-      ]
+      "~/*": ["./src/*"],
+      "~layout/*": ["./src/layouts/*"],      
+      "~components/*": ["./src/components/*"],
+      "~utils/*": ["./src/utils/*"],      
+      "~state/*": ["./src/states/*"],
+      "~style/*": ["./src/styles/*"],
+      "~types/*": ["./src/types/*"],
+      "~constants/*": ["./src/constants/*"]
     }
   },
   "include": [
