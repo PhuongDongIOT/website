@@ -1,7 +1,7 @@
 import * as winston from 'winston';
 import chalk from 'chalk';
 import * as util from 'util';
-import { formatDate } from '~/utils/excute_type/date.utils';
+import { formatDate } from '~/utils/type/date.utils';
 
 import { transports, format } from "winston";
 

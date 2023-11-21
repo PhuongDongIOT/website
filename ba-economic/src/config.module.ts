@@ -3,7 +3,11 @@ import { Value } from '@sinclair/typebox/value';
 
 const envSchema = Type.Object({
   APP_PORT: Type.String(),
+  REDIS_PORT: Type.String(),
   JWT_SECRET: Type.String(),
+  JWT_NAME: Type.String(),
+  JWT_AUDIENCE: Type.String(),
+  JWT_ISSUER: Type.String(),
   JWT_ALGORITHM: Type.String(),
   MAIL_DRIVER: Type.String(),
   MAIL_SECURE: Type.String(),

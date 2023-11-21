@@ -1,16 +1,19 @@
 import { Elysia, t as T } from 'elysia';
 import { cors } from "@elysiajs/cors";
-import { cookie } from '@elysiajs/cookie'
-import { jwt } from '@elysiajs/jwt'
+import { cookie } from '@elysiajs/cookie';
 import { compile as c, trpc } from "@elysiajs/trpc";
 import { swagger } from '@elysiajs/swagger';
 import { bearer } from '@elysiajs/bearer'
+import { serverTiming } from '@elysiajs/server-timing'
+
 import { initTRPC } from "@trpc/server";
 import { staticPlugin } from '@elysiajs/static';
 import { Type } from '@sinclair/typebox';
 
 import { cronPlugin } from './cron.plugin';
 import { tracePlugin } from './trace.plugin';
+import { jwtPlugin } from './jwt.plugin';
+import { useCheckRoute } from './utils/route.auth';
 import { 
   usersPlugin, 
   chatsPlugin, 
@@ -18,6 +21,8 @@ import {
   graphqlsPlugin, 
   filesPlugin } from '~modules/index';
 import { title, version, description } from '../package.json';
+import { logger } from '~utils/logger.utils'
+
 import {
   AuthenticationError,
   AuthorizationError,
@@ -44,6 +49,7 @@ export type Router = typeof router;
 export const setupApp = () => {
   return new Elysia()
     .use(tracePlugin)
+    .use(serverTiming())
     .error({
       AUTHENTICATION: AuthenticationError,
       AUTHORIZATION: AuthorizationError,
@@ -66,12 +72,21 @@ export const setupApp = () => {
     .use(cors())
     .use(cookie())
     .use(bearer())
-    .use(
-      jwt({
-          name: 'jwt',
-          secret: 'Fischl von Luftschloss Narfidort'
-      })
-    )
+    .use(jwtPlugin)
+    .on('beforeHandle', ({ request: { headers, url }, jwt}: any) => {
+      const authorization =  headers.get('Authorization')
+      const midlewareCheckRoute = useCheckRoute(url, jwt, authorization);
+      if(!midlewareCheckRoute) {
+        return {
+          authorization,
+        }
+      }
+    })
+    .derive(({ request: { headers } }) => {
+        return {
+            authorization: headers.get('Authorization')
+        }
+    })
     .use(cronPlugin)
     .use(graphqlsPlugin)
     .use(wsSocketsPlugin)

@@ -1,5 +1,4 @@
 import { Elysia, t } from 'elysia';
-import { createContext } from '~libs/connect.prisma'
 
 export const wsSocketsPlugin = new Elysia()
     // Simple chatroom with custom room id and name

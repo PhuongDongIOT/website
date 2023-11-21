@@ -29,9 +29,14 @@ const ReturnedArrayUserSchema = Type.Array(
     })
 )
 
+const ReturnedAuthorizationUserSchema = Type.Object({
+    authorization: Type.Any(), 
+})
+
 export {
     InsertUserSchema,
     ReturnedUserSchema,
     ReturnedArrayUserSchema,
     InsertUserSchemaElysia,
+    ReturnedAuthorizationUserSchema,
 }

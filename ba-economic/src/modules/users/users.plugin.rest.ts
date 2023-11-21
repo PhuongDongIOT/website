@@ -3,6 +3,7 @@ import {
   InsertUserSchemaElysia,
   ReturnedUserSchema,
   ReturnedArrayUserSchema,
+  ReturnedAuthorizationUserSchema,
 } from './users.schema';
 
 import { addJobs, myWorker } from '~/common/helpers/asynchronous.tasks';
@@ -18,6 +19,7 @@ export const usersPluginRest = new Elysia()
           response: ReturnedArrayUserSchema,
           detail: {
               summary: 'Detail',
+              description: 'Optional extended description in Markdown.'
           },
         },
     )

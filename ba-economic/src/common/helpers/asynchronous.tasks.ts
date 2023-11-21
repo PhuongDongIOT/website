@@ -1,8 +1,7 @@
 import { Queue, Worker } from 'bullmq';
-import IORedis from 'ioredis';
+import { connection } from './ioredis.helper';
 import { logger } from '~utils/logger.utils';
 
-const connection = new IORedis('6379');
 
 // Reuse the ioredis instance
 

@@ -75,9 +75,9 @@ export const setupApp = () => {
     .use(cronPlugin)
     .use(graphqlsPlugin)
     .use(wsSocketsPlugin)
-    .group('/api', (app) => app
+    .group('/api', (app: any) => app
       .use(usersPlugin)
       .use(filesPlugin))
-    .group('/ws', (app) => app.use(chatsPlugin))
-    .group('/trc', (app) => app.use(trpc(router)))
+    .group('/ws', (app: any) => app.use(chatsPlugin))
+    .group('/trc', (app: any) => app.use(trpc(router)))
 };
