@@ -1,79 +1,67 @@
-import type { InferGetStaticPropsType, GetStaticProps } from 'next'
-import { edenTreaty } from '@elysiajs/eden'
-import { App } from '../../../../ba-economic/src/index'
-import { logger } from '~utils/logger.utils'
+import { useState, useEffect } from 'react';
+import { TinyliciousClient } from "@fluidframework/tinylicious-client";
+import { SharedMap } from "fluid-framework";
+import { createBrowserHistory } from "history";
 
-import ErrorBoundary from '~components/error/ErrorBoundary'
-import ErrorDashboard from './error'
-
-type Repo = {
-  name: string
-  stargazers_count: number
-}
-
-type Prop = {
-  props: {
-    repo?: (Repo | any),
-    pong?: String
-  }
-}
-
-type Pong = String
-
-export async function connectEdenTreaty<T>(): Promise<T> {
-  const app: any = edenTreaty<App & any>('http://localhost:8080')
-  const { data: pong, error } = await app.get()
-  if (!pong || error) {
-    throw new Error("Page Not Found 404")
-  }
-  return pong
-}
-
-export async function http<T>(): Promise<T> {
-  const response = await fetch('https://api.github.com/repos/vercel/next.js')
-  // const app: any = edenTreaty<App & any>('http://localhost:8080')
-  const dataResponse: T | any = await response.json()
-  if (!response.ok || !dataResponse) {
-    throw new Error("Page Not Found 404")
-  }
-  // const { data: pong } = await app.get()
-  // const repo: (T | any) = await res.json()
-  // const response: Prop = { props: { repo, pong } }
-  return dataResponse
-}
+import ErrorBoundary from '~components/error/ErrorBoundary';
  
-export const getStaticProps = (async (context) => {
-  const repo: Repo = await http<Repo>();  
+export default function Index() {
 
-  const prop : Prop = {
-    props: {
-      repo: repo
+  const getFluidData = async () => {
+    const client = new TinyliciousClient();
+    const containerSchema = {
+        initialObjects: { sharedTimestamp: SharedMap }
+    };
+
+    let container;
+    if (typeof window !== "undefined") {
+      // Client-side-only code
+      const containerId = window.location.hash.substring(1);
+      if (!containerId) {
+          ({ container } = await client.createContainer(containerSchema));
+          const id = await container.attach();
+          window.location.hash = id;
+      } else {
+          ({ container } = await client.getContainer(containerId, containerSchema));
+      }
+      return container.initialObjects;
     }
   }
-  return prop;
-}) satisfies GetStaticProps<{
-  repo: Repo
-}>
- 
-export default function Index({
-  repo,
-  pong,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  const typeResponse = typeof repo  
-  if(typeResponse !== 'string') {
+
+  const [fluidSharedObjects, setFluidSharedObjects] = useState<any>();
+
+  useEffect(() => {
+      getFluidData()
+      .then(data => setFluidSharedObjects(data));
+  }, []);
+
+  const [localTimestamp, setLocalTimestamp] = useState<any>();
+
+useEffect(() => {
+    if (fluidSharedObjects) {
+    const { sharedTimestamp } = fluidSharedObjects;
+    const updateLocalTimestamp = () => setLocalTimestamp({ time: sharedTimestamp.get("time") });
+    console.log('hihi')
+    updateLocalTimestamp();
+    sharedTimestamp.on("valueChanged", updateLocalTimestamp);
+    return () => { sharedTimestamp.off("valueChanged", updateLocalTimestamp) }
+        // TODO 4: Set the value of the localTimestamp state object that will appear in the UI.
+        // TODO 5: Register handlers.
+        // TODO 6: Delete handler registration when the React App component is dismounted.
+
+    } else {
+        return; // Do nothing because there is no Fluid SharedMap object yet.
+    }
+}, [fluidSharedObjects])
+  console.log(localTimestamp)
     return (
-      <ErrorBoundary>
-        <div className="box-border h-32 w-32 p-2 border-4 md:box-content hover:box-content">
-          <p>Excluding borders and padding</p>
-        </div>
-      </ErrorBoundary>
+      localTimestamp ?
+        <div className="App">
+            <button onClick={() => fluidSharedObjects.sharedTimestamp.set("time", Date.now().toString())}>
+                Get Time
+            </button>
+            <span>{localTimestamp.time}</span>
+        </div> :  <div/>
     )
-  } else {
-    return (
-      <div className="box-border h-32 w-32 p-2 border-4 md:box-content hover:box-content">
-        <p>Excluding borders and padding</p>
-      </div>
-    )
-  } 
 }
 
