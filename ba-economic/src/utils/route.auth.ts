@@ -2,7 +2,7 @@ import { logger } from './logger.utils';
 import { JwtAuthGuard } from '~middlewares/authentication/guard/jwt-auth.guard';
 
 interface AbstractRoute {
-    createMethodCheckRoute(): TypeRouteRegrex | null;
+    async createMethodCheckRoute(): Promise<TypeRouteRegrex | null>;
 }
 
 interface TypeRouteRegrex {
@@ -79,9 +79,9 @@ class AbstractRouteRegrex implements AbstractRoute {
 
     public async createMethodCheckRoute(): Promise<TypeRouteRegrex | null>  {    
         let checkAuthRoute: TypeRouteRegrex = new CheckAuthRoute(this.route.pathname);
-        if(checkAuthRoute) {
+        if(!checkAuthRoute) {
             const concreteRouteAuth: ConcreteRouteAuth = new ConcreteRouteAuth(this.jwt, this.auth);
-            checkAuthRoute = await concreteRouteAuth.usefulFunctionAuth()
+            const checkAuthRouteFunc: any = await concreteRouteAuth.usefulFunctionAuth();
         }
         return checkAuthRoute;
     }
