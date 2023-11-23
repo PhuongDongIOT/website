@@ -1,7 +1,7 @@
 export class JwtAuthGuard {
     content: string;
     jwt: any;
-    constructor(content: string, jwtHook: any) {
+    constructor(jwtHook: any, content: string) {
         this.content = content;
         this.jwt = jwtHook;
     }

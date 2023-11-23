@@ -1,16 +1,16 @@
 import { logger } from './logger.utils';
-import { JwtAuthGuard } from '~middlewares/authentication/guard/jwt-auth.guard';
+import { TypeUrlRegrex, urlRegrex } from '~contants/url.contants';
+
+type TypeAuthorization<T> = T;
 
 interface AbstractRoute {
-    async createMethodCheckRoute(): Promise<TypeRouteRegrex | null>;
+    createMethodCheckRoute(): TypeRouteRegrex | null;
 }
 
 interface TypeRouteRegrex {
     usefulFunction(urlRegrex: TypeUrlRegrex): string | boolean;
 }
 
-type TypeUrlRegrex = Array<string>;
-type TypeAuthorization = string | null;
 
 class ConcreteRouteRegrex implements TypeRouteRegrex {
     routeString: string;
@@ -40,12 +40,10 @@ class ConcreteRouteRegrex implements TypeRouteRegrex {
 }
 
 class ConcreteRouteAuth implements TypeRouteRegrex {
-    authString: TypeAuthorization;
-    jwt: any;
+    authString: TypeAuthorization<any>;
 
-    constructor(jwt: any, authString: TypeAuthorization) {
+    constructor(authString: TypeAuthorization<any>) {
         this.authString = authString;
-        this.jwt = jwt;
     }
 
     public usefulFunction(urlRegrex: TypeUrlRegrex): string | boolean {
@@ -54,34 +52,23 @@ class ConcreteRouteAuth implements TypeRouteRegrex {
 
     public async usefulFunctionAuth(): Promise<boolean> {
         let result :boolean = false;
-        if(this.authString) {
-            const checkAuth: JwtAuthGuard = new JwtAuthGuard(this.jwt, this.authString);
-            const checkAuthVerify: string = await checkAuth.verify()
-            if(checkAuthVerify) {
-                result = !result;
-            }
-
-        }
         return result;
     }
 }
 
 class AbstractRouteRegrex implements AbstractRoute {
     route: URL;
-    auth: TypeAuthorization;
-    jwt: any;
+    auth: TypeAuthorization<any>;
 
-    constructor(urlString: string, jwt: any, authString: TypeAuthorization) {
+    constructor(urlString: string, authString: TypeAuthorization<any>) {
         this.route = new URL(urlString);
         this.auth = authString;
-        this.jwt = jwt;
     }
 
-    public async createMethodCheckRoute(): Promise<TypeRouteRegrex | null>  {    
+    public createMethodCheckRoute(): TypeRouteRegrex | null {    
         let checkAuthRoute: TypeRouteRegrex = new CheckAuthRoute(this.route.pathname);
         if(!checkAuthRoute) {
-            const concreteRouteAuth: ConcreteRouteAuth = new ConcreteRouteAuth(this.jwt, this.auth);
-            const checkAuthRouteFunc: any = await concreteRouteAuth.usefulFunctionAuth();
+            checkAuthRoute = new ConcreteRouteAuth(this.auth);
         }
         return checkAuthRoute;
     }
@@ -101,11 +88,9 @@ class CheckAuthRoute implements TypeRouteRegrex {
     }
 }
 
-async function clientCode(factory: AbstractRoute) {
-    const urlRegrex: TypeUrlRegrex = [
-        '\/api\\/*.'
-    ]
-    const routeCheckRegrex: TypeRouteRegrex | null = await factory.createMethodCheckRoute();
+function clientCode(factory: AbstractRoute) {
+
+    const routeCheckRegrex: TypeRouteRegrex | null = factory.createMethodCheckRoute();
     if(routeCheckRegrex) {
         const usefulFunctionRoute: string | boolean = routeCheckRegrex.usefulFunction(urlRegrex);
         logger.info(usefulFunctionRoute)
@@ -113,7 +98,7 @@ async function clientCode(factory: AbstractRoute) {
     }
 }
 
-const useCheckRoute = async (urlString: string, jwt: any, authString: string | null) => await clientCode(new AbstractRouteRegrex(urlString, jwt, authString));
+const useCheckRoute = (urlString: string, authString: string | null) => clientCode(new AbstractRouteRegrex(urlString, authString));
 
 export {
     useCheckRoute,

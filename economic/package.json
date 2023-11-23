@@ -8,7 +8,7 @@
     }
   },
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "bun:tinylicious": "bunx tinylicious",
     "bun:dev": "bun --bun run dev",
     "build": "next build",

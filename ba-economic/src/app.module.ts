@@ -13,7 +13,6 @@ import { Type } from '@sinclair/typebox';
 import { cronPlugin } from './cron.plugin';
 import { tracePlugin } from './trace.plugin';
 import { jwtPlugin } from './jwt.plugin';
-import { useCheckRoute } from './utils/route.auth';
 import { 
   usersPlugin, 
   chatsPlugin, 
@@ -22,6 +21,8 @@ import {
   filesPlugin } from '~modules/index';
 import { title, version, description } from '../package.json';
 import { logger } from '~utils/logger.utils'
+import { useCheckRoute } from '~utils/route.auth';
+import { useHandleEncodeAuth } from '~utils/jwt.auth';
 
 import {
   AuthenticationError,
@@ -73,19 +74,18 @@ export const setupApp = () => {
     .use(cookie())
     .use(bearer())
     .use(jwtPlugin)
-    .on('beforeHandle', ({ request: { headers, url }, jwt}: any) => {
-      const authorization =  headers.get('Authorization')
-      const midlewareCheckRoute = useCheckRoute(url, jwt, authorization);
+    .derive(async ({ jwt, request: { headers } }) => {
+        const authorization: any = headers.get('Authorization');
+        const decodedAuth: any = await useHandleEncodeAuth(jwt, authorization);
+        return decodedAuth;
+    })
+    .on('beforeHandle', ({ request: { url }, authorization }: any) => {
+      const midlewareCheckRoute = useCheckRoute(url, authorization);
       if(!midlewareCheckRoute) {
         return {
           authorization,
         }
       }
-    })
-    .derive(({ request: { headers } }) => {
-        return {
-            authorization: headers.get('Authorization')
-        }
     })
     .use(cronPlugin)
     .use(graphqlsPlugin)

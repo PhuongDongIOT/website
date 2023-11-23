@@ -30,7 +30,8 @@
       "~state/*": ["./src/states/*"],
       "~style/*": ["./src/styles/*"],
       "~types/*": ["./src/types/*"],
-      "~constants/*": ["./src/constants/*"]
+      "~constants/*": ["./src/constants/*"],
+      "~i18n/*": ["./src/i18n/*"]
     }
   },
   "include": [
