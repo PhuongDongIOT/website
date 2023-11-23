@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Article, ArticleFilterParams, ArticleSliceType } from '../../types/article-types';
-import getUniqueAryByKey from '../../utils/get-unique-ary';
+import { getUniqueAryByKey } from '~utils/histoty.utils';
 
 const initialState: ArticleSliceType = {
   lists    : [],

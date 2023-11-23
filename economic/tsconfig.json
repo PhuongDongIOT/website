@@ -28,10 +28,15 @@
       "~components/*": ["./src/components/*"],
       "~utils/*": ["./src/utils/*"],      
       "~state/*": ["./src/states/*"],
+      "~helpers/*": ["./src/helpers/*"],
+      "~redux/*": ["./src/redux/*"],
+      "~pages/*": ["./src/pages/*"],
       "~style/*": ["./src/styles/*"],
+      "~apis/*": ["./src/apis/*"],
       "~types/*": ["./src/types/*"],
       "~constants/*": ["./src/constants/*"],
-      "~i18n/*": ["./src/i18n/*"]
+      "~i18n/*": ["./src/i18n/*"],
+      "~configs/*": ["./src/configs/*"]
     }
   },
   "include": [

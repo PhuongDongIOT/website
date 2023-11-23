@@ -1,10 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { mainConfig } from '../../configs/main-config';
-import { convertArticleToFavoriteItem } from '../../helpers/article-helper';
+import { mainConfig } from '~configs/main.config';
+import { convertArticleToFavoriteItem } from '~helpers/pages/article.helper';
 import {
   Article, AvatarResponse, FavoriteItem, Profile, UploadFileParams, UserSliceType,
-} from '../../types/article-types';
-import { consoleLog } from '../../utils/console-log';
+} from '~types/article-types';
 
 export const defaultProfileValues: Profile = {
   firstName : '',
@@ -43,6 +42,7 @@ const userSlice = createSlice({
         state.identityToken = `${token}|ISO DATE:${isoDate}`;
       }
       state.visitedTimes += 1;
+      console.log(state)
     },
 
     recentItemRequest: (state, action: PayloadAction<Article>) => {
@@ -70,10 +70,10 @@ const userSlice = createSlice({
 
     uploadAvatarRequest: (state, action: PayloadAction<UploadFileParams>) => {
       state.status = 'loading';
-      consoleLog('🚀 ~ file: userSlice.ts ~ line 57 ~ uploadAvatarRequest', action, state);
+      console.log('🚀 ~ file: userSlice.ts ~ line 57 ~ uploadAvatarRequest', action, state);
     },
     uploadAvatarSuccess: (state, action: PayloadAction<AvatarResponse>) => {
-      consoleLog('🚀 ~ file: userSlice.ts ~ line 57 ~ uploadAvatarSuccess', action, state);
+      console.log('🚀 ~ file: userSlice.ts ~ line 57 ~ uploadAvatarSuccess', action, state);
       state.status = 'loaded';
 
       state.profile = { ...state.profile, avatarUrl: action.payload.avatarUrl };
@@ -85,7 +85,7 @@ const userSlice = createSlice({
         ...action.payload,
         avatarUrl: state.profile.avatarUrl, // avatarUrl is update separately
       };
-      consoleLog('🚀 ~ file: userSlice.ts ~ line 57 ~ updateProfileRequest', action, state);
+      console.log('🚀 ~ file: userSlice.ts ~ line 57 ~ updateProfileRequest', action, state);
     },
   },
 });

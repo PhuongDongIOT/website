@@ -1,7 +1,7 @@
 import { HYDRATE } from 'next-redux-wrapper';
 import { combineReducers } from '@reduxjs/toolkit';
 import type { AnyAction, CombinedState } from '@reduxjs/toolkit';
-import { mainConfig } from '../../configs/main-config';
+import { mainConfig } from '~configs/main.config';
 
 import userSlice from './userSlice';
 import articleSlice from './articleSlice';
