@@ -1,22 +1,77 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
-import { authSlice } from "./authSlice";
-import { createWrapper } from "next-redux-wrapper";
+// import {
+//     Action, configureStore, ThunkAction, Store,
+//   } from '@reduxjs/toolkit';
+//   import createSagaMiddleware, { Task } from 'redux-saga';
+//   import { createWrapper } from 'next-redux-wrapper';
+//   import { persistStore, persistReducer, Persistor } from 'redux-persist';
+  // import AsyncStorage from '@react-native-async-storage/async-storage';
+  // import { mainConfig } from '~configs/main.config';
+  // import rootSaga from './saga';
+  // import rootReducer from './features/reducer';
+  
+  // export interface SagaStore extends Store {
+  //   sagaTask: Task;
+  //   reduxPersistData: Persistor;
+  // }
+  
+  // let newRootReducer = rootReducer;
+  
+  // export const enableReduxPersist = mainConfig.reduxPersistConfigs.enabled && mainConfig.isClientSide;
+  
+  // if (enableReduxPersist) {
+  //   newRootReducer = persistReducer({
+  //     ...mainConfig.reduxPersistConfigs,
+  //     storage: AsyncStorage,
+  //   }, rootReducer);
+  // }
+  
+  // export const createReduxStore = ():SagaStore => {
+  //   // const sagaMiddleware = createSagaMiddleware();
+  //   const store = configureStore({
+  //     reducer   : newRootReducer,
+  //     middleware: [],
+  //     devTools  : mainConfig.isDevEnv,
+  //   });
+  
+  //   // (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
+  
+  //   (store as SagaStore).reduxPersistData = enableReduxPersist
+  //     ? persistStore(store)
+  //     : persistStore(store);
+  
+  //   return store as SagaStore;
+  // };
+  
+  // export type ReduxStore = ReturnType<typeof createReduxStore>;
+  // export type ReduxState = ReturnType<ReduxStore['getState']>;
+  // export type ReduxThunk<ReturnType = void> = ThunkAction<ReturnType, ReduxState, unknown, Action>;
+  
+  // export const reduxWrapper = createWrapper<ReduxStore>(createReduxStore, {
+  //   debug: mainConfig.isDevEnv,
+  // });
 
-const makeStore = () =>
-  configureStore({
-    reducer: {
-      [authSlice.name]: authSlice.reducer,
-    },
-    devTools: true,
-  });
-
-export type AppStore = ReturnType<typeof makeStore>;
-export type AppState = ReturnType<AppStore["getState"]>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  AppState,
-  unknown,
-  Action
->;
-
-export const wrapper = createWrapper<AppStore>(makeStore);
+  import { configureStore } from "@reduxjs/toolkit";
+  import postsSlice from "./slices/postsSlice";
+  
+  export const store = configureStore({
+      reducer: {
+          posts: postsSlice
+      }
+  })
+  
+    // export const createReduxStore = ():SagaStore => {
+  //   // const sagaMiddleware = createSagaMiddleware();
+  //   const store = configureStore({
+  //     reducer   : newRootReducer,
+  //     middleware: [],
+  //     devTools  : mainConfig.isDevEnv,
+  //   });
+  
+  //   // (store as SagaStore).sagaTask = sagaMiddleware.run(rootSaga);
+  
+  //   (store as SagaStore).reduxPersistData = enableReduxPersist
+  //     ? persistStore(store)
+  //     : persistStore(store);
+  
+  //   return store as SagaStore;
+  // };

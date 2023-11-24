@@ -1,3 +1,5 @@
+'use client'
+
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import { edenTreaty } from '@elysiajs/eden'
 import { useSession, signIn, signOut } from "next-auth/react"
@@ -5,7 +7,7 @@ import { useSession, signIn, signOut } from "next-auth/react"
 import { App } from '../../../ba-economic/src/index'
 import { logger } from '~utils/logger.utils'
 
-import { HeroComponent } from '~layout/Home';
+import { HeroComponent } from '~layouts/Home';
  
 type Repo = {
   name: string
@@ -46,12 +48,12 @@ export const getStaticProps = (async (context) => {
   const log = console.log;
   // console.log(data)
   logger.info(data);
-  const prop : Prop = {
+  return {
     props: {
-      repo: data
+      pong: 'Hello word',
+      repo: data,
     }
   }
-  return prop;
 }) satisfies GetStaticProps<{
   pong: Pong,
   repo: Repo,

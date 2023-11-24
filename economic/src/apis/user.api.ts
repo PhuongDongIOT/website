@@ -1,6 +1,6 @@
 import { AvatarResponse, UploadFileParams } from '../types/article-types';
-import { uploadFileToCloudinary } from '~utils/upload/cloudinary';
-import { uploadFileToImageKit } from '~utils/upload/imagekit';
+import { uploadFileToCloudinary } from '~/utils/uploads/cloudinary';
+import { uploadFileToImageKit } from '~/utils/uploads/imagekit';
 
 interface ReactQueryFnProps<T> {
   queryKey: [string, T];

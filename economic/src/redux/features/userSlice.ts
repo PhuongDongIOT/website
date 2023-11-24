@@ -42,7 +42,6 @@ const userSlice = createSlice({
         state.identityToken = `${token}|ISO DATE:${isoDate}`;
       }
       state.visitedTimes += 1;
-      console.log(state)
     },
 
     recentItemRequest: (state, action: PayloadAction<Article>) => {
