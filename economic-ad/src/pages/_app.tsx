@@ -1,17 +1,29 @@
-import type { AppProps } from 'next/app'
+'use client';
 
-import RootLayout from 'Layout/RootLayout';
-import 'Style/globals.css'
+import type { AppProps } from 'next/app';
+import { SessionProvider } from "next-auth/react";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-const MyApp = ({ Component, pageProps }: AppProps) => {
+import RootLayout from '~layouts/RootLayout';
+import '~styles/globals.css';
+
+const queryClient = new QueryClient();
+
+const MyApp = ({ Component,   pageProps: { session, ...pageProps } }: AppProps) => {
   return (
-      <Component {...pageProps} />
+    <QueryClientProvider client={queryClient}>
+      <RootLayout>
+      <SessionProvider session={session}>
+        <Component {...pageProps} />
+      </SessionProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+      </RootLayout>
+    </QueryClientProvider>
   )
 }
-
-MyApp.getLayout = (page: AppProps) => (
-  <RootLayout {...page}>
-  </RootLayout>
-);
 
 export default MyApp

@@ -1,7 +1,13 @@
+'use client'
+
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
 import { edenTreaty } from '@elysiajs/eden'
+import { useSession, signIn, signOut } from "next-auth/react"
+
 import { App } from '../../../ba-economic/src/index'
-import chalk from 'chalk'
+import { logger } from '~utils/logger.utils'
+
+import { HeroComponent } from '~layouts/Home';
  
 type Repo = {
   name: string
@@ -30,7 +36,7 @@ export async function connectEdenTreaty<T>(): Promise<T> {
 export async function http<T>(): Promise<T> {
   const response = await fetch('https://api.github.com/repos/vercel/next.js')
 
-  const dataResponse: T | undefined = await response.json()
+  const dataResponse: T | any = await response.json()
   if (!response.ok || !dataResponse) {
     throw new Error("Page Not Found 404")
   }
@@ -41,14 +47,13 @@ export const getStaticProps = (async (context) => {
   const data: Repo = await http<Repo>()
   const log = console.log;
   // console.log(data)
-  const warning = chalk.hex('#FFA500'); // Orange color
-  log(warning(data))
-  const prop : Prop = {
+  logger.info(data);
+  return {
     props: {
-      repo: data
+      pong: 'Hello word',
+      repo: data,
     }
   }
-  return prop;
 }) satisfies GetStaticProps<{
   pong: Pong,
   repo: Repo,
@@ -61,14 +66,27 @@ export default function Index({
   const typeResponse = typeof repo  
   if(typeResponse === 'string'|| true) {
     return (
-      <>
-        <div className="box-border h-32 w-32 p-2 border-4 md:box-content hover:box-content">
-          <p>Excluding borders and padding</p>
-        </div>
-      </>
+      <ComponentLogin />
     )
   } else {
     return pong
   }
 }
 
+function ComponentLogin() {
+  const { data: session } = useSession()
+  if (session) {
+    return (
+      <>
+        Signed in as {session?.user?.email} <br />
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    )
+  }
+  return (
+    <>
+      Not signed in <br />
+      <button onClick={() => signIn()}>Sign in</button>
+    </>
+  )
+}
