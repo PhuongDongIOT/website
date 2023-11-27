@@ -1,5 +1,6 @@
 import { useSpring, animated } from '@react-spring/web';
 import RustComponent from '~components/wsam/RustComponent';
+import GoogleMapsEmbedComponents from '~components/google/GoogleMapsEmbedComponents'
 
 
 export default function MyComponent() {
@@ -11,6 +12,7 @@ export default function MyComponent() {
   return (
     <>
       <RustComponent numberOne={1} numberTwo={1} />
+      <GoogleMapsEmbedComponents />
       <animated.div
         style={{
           width: 80,

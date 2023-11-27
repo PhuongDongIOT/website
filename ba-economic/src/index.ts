@@ -2,6 +2,7 @@ import { Elysia } from 'elysia';
 
 import { setupApp } from './app.module';
 import { env } from './config.module';
+import { logger } from '~utils/logger.utils'
 
 const app = new Elysia()
   .use(setupApp)
@@ -10,7 +11,7 @@ const app = new Elysia()
   })
   .listen(env.APP_PORT ?? 3001);
 
-console.log(
+logger.info(
   `🦊 Elysia is running! Access Swagger UI at http://${app.server?.hostname}:${app.server?.port}/swagger`,
 );
 

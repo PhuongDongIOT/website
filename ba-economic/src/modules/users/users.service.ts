@@ -4,6 +4,8 @@ import { NotFoundError } from 'elysia';
 import { User, UserCreated, UserResponse } from './users.model';
 import { UsersRepository } from './users.repository';
 import { AuthenticationError, BadRequestError } from '~/errors';
+import { handleFunction } from './users.addon';
+import { logger } from '~utils/logger.utils';
 
 export class UsersService {
     constructor(
@@ -12,6 +14,7 @@ export class UsersService {
 
     async findAllUser() {
         const user = await this.repository.findAllUser();
+        logger.info(handleFunction());
         if (!user) {
           throw new NotFoundError('User not found');
         }

@@ -3,8 +3,8 @@ import { cors } from "@elysiajs/cors";
 import { cookie } from '@elysiajs/cookie';
 import { compile as c, trpc } from "@elysiajs/trpc";
 import { swagger } from '@elysiajs/swagger';
-import { bearer } from '@elysiajs/bearer'
-import { serverTiming } from '@elysiajs/server-timing'
+import { bearer } from '@elysiajs/bearer';
+import { serverTiming } from '@elysiajs/server-timing';
 
 import { initTRPC } from "@trpc/server";
 import { staticPlugin } from '@elysiajs/static';
@@ -20,9 +20,9 @@ import {
   graphqlsPlugin, 
   filesPlugin } from '~modules/index';
 import { title, version, description } from '../package.json';
-import { logger } from '~utils/logger.utils'
 import { useCheckRoute } from '~utils/route.auth';
 import { useHandleEncodeAuth } from '~utils/jwt.auth';
+import { logger } from '~utils/logger.utils'
 
 import {
   AuthenticationError,

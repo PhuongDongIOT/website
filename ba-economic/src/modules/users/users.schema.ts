@@ -24,8 +24,8 @@ const ReturnedUserSchema = Type.Object({
 
 const ReturnedArrayUserSchema = Type.Array(
     Type.Object({
-        name: Type.String(),
-        email: Type.String()  
+        email: Type.String(),
+        name: Type.String() 
     })
 )
 
