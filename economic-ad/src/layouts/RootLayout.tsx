@@ -8,6 +8,7 @@ import React, { useEffect } from 'react';
 // import userSlice from '~redux/features/userSlice';
 // import { IS_DEV } from '~constants/article-const';
 import Providers from '~redux/provider';
+import { Theme } from '@radix-ui/themes';
 
 
 function RootLayout({
@@ -26,7 +27,9 @@ function RootLayout({
     // );
     return (
       <Providers>
-        {children}
+        <Theme>
+          {children}
+        </Theme>
       </Providers>
     )
   }

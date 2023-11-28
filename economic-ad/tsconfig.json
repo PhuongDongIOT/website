@@ -38,7 +38,8 @@
       "~i18n/*": ["./src/i18n/*"],
       "~configs/*": ["./src/configs/*"],
       "~views/*": ["./src/views/*"],
-      "~addons/*": ["./src/addons/*"]
+      "~addons/*": ["./src/addons/*"],
+      "~stories/*": ["./src/stories/*"],
     }
   },
   "include": [

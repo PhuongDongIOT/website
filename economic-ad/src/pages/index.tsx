@@ -1,11 +1,10 @@
 'use client'
 
 import type { InferGetStaticPropsType, GetStaticProps } from 'next'
-import { edenTreaty } from '@elysiajs/eden'
-import { useSession, signIn, signOut } from "next-auth/react"
+import { edenTreaty } from '@elysiajs/eden';
 
-import { App } from '../../../ba-economic/src/index'
-import { logger } from '~utils/logger.utils'
+import { App } from '../../../ba-economic/src/index';
+import { logger } from '~utils/logger.utils';
 
 import { HeroComponent } from '~layouts/Home';
  
@@ -45,8 +44,6 @@ export async function http<T>(): Promise<T> {
  
 export const getStaticProps = (async (context) => {
   const data: Repo = await http<Repo>()
-  const log = console.log;
-  // console.log(data)
   logger.info(data);
   return {
     props: {
@@ -66,27 +63,9 @@ export default function Index({
   const typeResponse = typeof repo  
   if(typeResponse === 'string'|| true) {
     return (
-      <ComponentLogin />
+      <HeroComponent />
     )
   } else {
     return pong
   }
-}
-
-function ComponentLogin() {
-  const { data: session } = useSession()
-  if (session) {
-    return (
-      <>
-        Signed in as {session?.user?.email} <br />
-        <button onClick={() => signOut()}>Sign out</button>
-      </>
-    )
-  }
-  return (
-    <>
-      Not signed in <br />
-      <button onClick={() => signIn()}>Sign in</button>
-    </>
-  )
 }
