@@ -9,7 +9,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import RootLayout from '~layouts/RootLayout';
 import '~styles/globals.css';
-import '@radix-ui/themes/styles.css';
 
 const queryClient = new QueryClient();
 

@@ -1,14 +1,13 @@
 
 'use client';
 
-import React, { useEffect } from 'react';
+import React/*, { useEffect }*/ from 'react';
 // import { PersistGate } from 'redux-persist/integration/react';
 // import { useStore, Provider } from 'react-redux';
 // import { ReduxStore, reduxWrapper, createReduxStore } from '~redux/store';
 // import userSlice from '~redux/features/userSlice';
 // import { IS_DEV } from '~constants/article-const';
 import Providers from '~redux/provider';
-import { Theme } from '@radix-ui/themes';
 
 
 function RootLayout({
@@ -27,9 +26,7 @@ function RootLayout({
     // );
     return (
       <Providers>
-        <Theme>
-          {children}
-        </Theme>
+        {children}
       </Providers>
     )
   }
