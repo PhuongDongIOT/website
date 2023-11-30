@@ -1,7 +1,7 @@
 'use client'
-import FlowsComponent from '~/components/flows/FlowsComponent';
-import MemoList from '~components/slide/MemoList';
-import DndExample from '~/components/dragdrops/DndExample';
+// import FlowsComponent from '~/components/flows/FlowsComponent';
+// import DndExample from '~/components/dragdrops/DndExample';
+import  MainHome from '~views/homes/main';
 import { mainConfig } from '~configs/main.config';
 
 
@@ -11,8 +11,8 @@ function Index() {
     return (
       <>
         {/* <FlowsComponent /> */}
-        <DndExample />
-        {/* <MemoList /> */}
+        {/* <DndExample /> */}
+        <MainHome />
       </>
     )
 

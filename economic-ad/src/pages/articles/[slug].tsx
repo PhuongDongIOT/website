@@ -14,7 +14,7 @@ import articleSlice from '~redux/features/articleSlice';
 import { ReduxState, reduxWrapper } from '~redux/store';
 import { getRouterParam, getIdFromSlug } from '~utils/histoty.utils';
 import { mainConfig } from '~configs/main.config';
-  import ArticleDetail from '~views/article/detail';
+  import ArticleDetail from '~/views/articles/detail';
 import userSlice from '~redux/features/userSlice';
 import HeadMeta from '~layouts/HeadMeta';
 import { Article } from '~types/article-types';

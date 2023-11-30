@@ -1,12 +1,12 @@
 import React from 'react';
-import { BlogCard, BlogCardProps } from './BlogCard';
+import { CardBlog, CardBlogProps } from './CardBlog';
 
 interface BlogProps {
-    blogCardList: BlogCardProps[];
+    cardBlogList: CardBlogProps[];
     onClick?: () => void;
 }
 
-export const Blog = ({ blogCardList }: BlogProps) => {
+export const Blog = ({ cardBlogList }: BlogProps) => {
     return (
         <>
             <section className="bg-white pb-10 pt-20 dark:bg-dark lg:pb-20 lg:pt-[120px]">
@@ -30,14 +30,14 @@ export const Blog = ({ blogCardList }: BlogProps) => {
 
                     <div className="-mx-4 flex flex-wrap">
                         {
-                            blogCardList.map((blogCard, index) => (
+                            cardBlogList.map((cardBlog, index) => (
                                 <div key={index} className="md:w-1/3">
-                                    <BlogCard
-                                        width={blogCard.width}
-                                        date={blogCard.date}
-                                        cardTitle={blogCard.cardTitle}
-                                        cardDescription={blogCard.cardDescription}
-                                        image={blogCard.image}
+                                    <CardBlog
+                                        width={cardBlog.width}
+                                        date={cardBlog.date}
+                                        cardTitle={cardBlog.cardTitle}
+                                        cardDescription={cardBlog.cardDescription}
+                                        image={cardBlog.image}
                                     />
                                 </div>
                             ))

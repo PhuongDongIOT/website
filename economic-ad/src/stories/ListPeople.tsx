@@ -1,62 +1,95 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 interface ListPeopleProps {
     toggleItemActive: (index: number) => void;
 }
 
-export const ListPeople = ({ toggleItemActive }: ListPeopleProps) => {
+const ListPeople = ({ toggleItemActive }: ListPeopleProps) => {
 
     return (
         <div className="w-full flex justify-center">
-            <div className="w-[24.5rem] divide-y divide-slate-400/20 rounded-lg bg-white text-[0.8125rem] leading-5 text-slate-900 shadow-xl shadow-black/5 ring-1 ring-slate-700/10">
-                <div className="flex items-center p-4">
-                    <img
-                        src="https://tailwindui.com/img/avatar-1.jpg"
-                        alt=""
-                        className="h-10 w-10 flex-none rounded-full"
-                    />
-                    <div className="ml-4 flex-auto">
-                        <div className="font-medium">Leonard Krasner</div>
-                        <div className="mt-1 text-slate-700">@leonardkrasner</div>
+            <ul>
+                <li className="relative px-2 py-8 sm:px-10">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-semibold text-slate-500">Marketing</h3>
+                        <a
+                            className="inline-flex justify-center rounded-lg text-sm font-semibold py-2 px-3 text-slate-900 ring-1 ring-slate-900/10 hover:ring-slate-900/20"
+                            href="https://tailwindui.com/checkout/1ab56599-ff3e-4666-9686-edda6c81c82a"
+                        >
+                            <span>
+                                Get package<span className="sr-only">, Marketing</span>
+                            </span>
+                        </a>
                     </div>
-                    <div className="pointer-events-auto ml-4 flex-none rounded-md px-2 py-[0.3125rem] font-medium text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50">
-                        View
+                    <p className="flex items-center">
+                        <span className="text-2xl text-slate-900">
+                            $<span className="font-bold">149</span>
+                        </span>
+                        <span className="ml-2 text-sm text-slate-500">plus local taxes</span>
+                    </p>
+                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                        Heroes, feature sections, newsletter sign up forms — all of the
+                        components you need to build beautiful marketing websites.
+                    </p>
+                </li>
+                <li className="relative px-2 py-8 sm:px-10">
+                    <div className="absolute -inset-x-8 top-0 h-px bg-slate-900/10 [mask-image:linear-gradient(to_right,transparent,white_4rem,white_calc(100%-4rem),transparent)]" />
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-semibold text-slate-500">Application UI</h3>
+                        <a
+                            className="inline-flex justify-center rounded-lg text-sm font-semibold py-2 px-3 text-slate-900 ring-1 ring-slate-900/10 hover:ring-slate-900/20"
+                            href="https://tailwindui.com/checkout/0ed326ca-c1fc-440b-b1ba-bdfb01c43185"
+                        >
+                            <span>
+                                Get package<span className="sr-only">, Application UI</span>
+                            </span>
+                        </a>
                     </div>
-                </div>
-                <div className="flex items-center p-4">
-                    <img
-                        src="https://tailwindui.com/img/avatar-2.jpg"
-                        alt=""
-                        className="h-10 w-10 flex-none rounded-full"
-                    />
-                    <div className="ml-4 flex-auto">
-                        <div className="font-medium">Floyd Miles</div>
-                        <div className="mt-1 text-slate-700">@floydmiles</div>
+                    <p className="flex items-center">
+                        <span className="text-2xl text-slate-900">
+                            $<span className="font-bold">149</span>
+                        </span>
+                        <span className="ml-2 text-sm text-slate-500">plus local taxes</span>
+                    </p>
+                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                        Form layouts, tables, modal dialogs — all of the components you need to
+                        build beautiful responsive web applications.
+                    </p>
+                </li>
+                <li className="relative px-2 py-8 sm:px-10">
+                    <div className="absolute -inset-x-8 top-0 h-px bg-slate-900/10 [mask-image:linear-gradient(to_right,transparent,white_4rem,white_calc(100%-4rem),transparent)]" />
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-semibold text-slate-500">Ecommerce</h3>
+                        <a
+                            className="inline-flex justify-center rounded-lg text-sm font-semibold py-2 px-3 text-slate-900 ring-1 ring-slate-900/10 hover:ring-slate-900/20"
+                            href="https://tailwindui.com/checkout/7b7130a6-68aa-49cb-9f13-818720c60fe8"
+                        >
+                            <span>
+                                Get package<span className="sr-only">, Ecommerce</span>
+                            </span>
+                        </a>
                     </div>
-                    <div className="pointer-events-auto ml-4 flex-none rounded-md px-2 py-[0.3125rem] font-medium text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50">
-                        View
-                    </div>
-                </div>
-                <div className="flex items-center p-4">
-                    <img
-                        src="https://tailwindui.com/img/avatar-3.jpg"
-                        alt=""
-                        className="h-10 w-10 flex-none rounded-full"
-                    />
-                    <div className="ml-4 flex-auto">
-                        <div className="font-medium">Emily Selman</div>
-                        <div className="mt-1 text-slate-700">@emilyselman</div>
-                    </div>
-                    <div className="pointer-events-auto ml-4 flex-none rounded-md px-2 py-[0.3125rem] font-medium text-slate-700 shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50">
-                        View
-                    </div>
-                </div>
-                <div className="p-4">
-                    <div className="pointer-events-auto rounded-md px-4 py-2 text-center font-medium shadow-sm ring-1 ring-slate-700/10 hover:bg-slate-50">
-                        View all
-                    </div>
-                </div>
-            </div>
+                    <p className="flex items-center">
+                        <span className="text-2xl text-slate-900">
+                            $<span className="font-bold">149</span>
+                        </span>
+                        <span className="ml-2 text-sm text-slate-500">plus local taxes</span>
+                    </p>
+                    <p className="mt-3 text-sm leading-6 text-slate-600">
+                        Checkout forms, shopping carts, product views — all of the components
+                        you need to build your next ecommerce front-end.
+                    </p>
+                </li>
+            </ul>
+
         </div>
     );
+}
+
+export type {
+    ListPeopleProps
+}
+
+export {
+    ListPeople
 }

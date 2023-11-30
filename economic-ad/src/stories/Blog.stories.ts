@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Blog } from './Blog';
-import { BlogCardProps } from './BlogCard';
+import { CardBlogProps } from './CardBlog';
 
-const blogCardList :BlogCardProps[] = [
+const cardBlogList :CardBlogProps[] = [
     {
         "width": "md:w-full",
         "date": "Dec 22, 2023",
@@ -42,6 +42,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     args: {
-        blogCardList: blogCardList
+        cardBlogList: cardBlogList
     },
 };

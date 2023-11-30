@@ -1,0 +1,1 @@
+export { broadcastChannelBrowser } from './BroadcastChannelBrowser.service';
