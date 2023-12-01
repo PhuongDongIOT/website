@@ -290,17 +290,149 @@ const CardsHorizontal = ({
   );
 };
 
+interface CardsImageBackgroundProps {
+  onClick?: () => void;
+}
+
+const CardsImageBackground = ({
+  ...props
+}: CardsImageBackgroundProps) => {
+  return (
+    <div className="overflow-hidden relative max-w-md mx-auto bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex items-center gap-6 dark:bg-slate-800 dark:highlight-white/5">
+      <img
+        className="absolute -left-6 w-28 h-28 rounded-full shadow-lg"
+        src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+      />
+      <div className="min-w-0 py-5 pl-28 pr-5">
+        <div className="text-slate-900 font-medium text-sm sm:text-base truncate dark:text-slate-200">
+          Andrew Alfred
+        </div>
+        <div className="text-slate-500 font-medium text-sm sm:text-base leading-tight truncate dark:text-slate-400">
+          Assistant to the Traveling Secretary
+        </div>
+      </div>
+    </div>
+  );
+};
+
+interface CardsImageRoundProps {
+  onClick?: () => void;
+}
+
+const CardsImageRound = ({
+  ...props
+}: CardsImageRoundProps) => {
+  return (
+    <div className="py-6">
+      <div className="overflow-visible relative max-w-sm mx-auto bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex items-center gap-6 dark:bg-slate-800 dark:highlight-white/5">
+        <img
+          className="absolute -left-6 w-24 h-24 rounded-full shadow-lg"
+          src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=4&w=256&h=256&q=80"
+        />
+        <div className="flex flex-col py-5 pl-24">
+          <strong className="text-slate-900 text-sm font-medium dark:text-slate-200">
+            Andrew Alfred
+          </strong>
+          <span className="text-slate-500 text-sm font-medium dark:text-slate-400">
+            Technical advisor
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+interface CardsWritingProps {
+  onClick?: () => void;
+}
+
+const CardsWriting = ({
+  ...props
+}: CardsWritingProps) => {
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2">
+      <div className="p-8 pt-7">
+        <p className="mb-2 text-sm font-medium text-slate-500">Light mode</p>
+        <div className="bg-white rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+          <div>
+            <span className="inline-flex items-center justify-center p-2 bg-indigo-500 rounded-md shadow-lg">
+              <svg
+                className="h-6 w-6 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </span>
+          </div>
+          <h3 className="mt-5 text-base font-medium text-slate-900 tracking-tight">
+            Writes Upside-Down
+          </h3>
+          <p className="mt-2 text-sm text-slate-500">
+            The Zero Gravity Pen can be used to write in any orientation, including
+            upside-down. It even works in outer space.
+          </p>
+        </div>
+      </div>
+      <div className="bg-slate-900 p-8 pt-7">
+        <p className="mb-2 text-sm font-medium text-slate-400">Dark mode</p>
+        <div className="bg-slate-800 rounded-lg px-6 py-8 ring-1 ring-slate-900/5 shadow-xl">
+          <div>
+            <span className="inline-flex items-center justify-center p-2 bg-indigo-500 rounded-md shadow-lg">
+              <svg
+                className="h-6 w-6 text-white"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </span>
+          </div>
+          <h3 className="mt-5 text-base font-medium text-white tracking-tight">
+            Writes Upside-Down
+          </h3>
+          <p className="mt-2 text-sm text-slate-400">
+            The Zero Gravity Pen can be used to write in any orientation, including
+            upside-down. It even works in outer space.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export type {
   CardsProps,
   CardsAspectsProps,
   CardsOptionsProps,
-  CardsHorizontalProps
+  CardsHorizontalProps,
+  CardsImageRoundProps,
+  CardsImageBackgroundProps,
+  CardsWritingProps
 }
 
 export {
   Cards,
   CardsAspects,
   CardsOptions,
-  CardsHorizontal
+  CardsHorizontal,
+  CardsImageRound,
+  CardsImageBackground,
+  CardsWriting
 }

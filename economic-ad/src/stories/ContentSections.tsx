@@ -1,10 +1,17 @@
+import Image from "next/image";
 import { CloudArrowUpIcon, LockClosedIcon, ServerIcon } from '@heroicons/react/20/solid';
+
+import ImageSection1 from './assets/image-1.webp';
+import ImageSection2 from './assets/image-2.webp';
+import ImageSection3 from './assets/image-3.webp';
+import ImageSection4 from './assets/image-4.webp';
+import ImageSection5 from './assets/image-5.webp';
 
 interface ContentSectionsProps {
   onClick?: () => void;
 }
 
-const ContentSections = ({...props}: ContentSectionsProps) => {
+const ContentSections = ({ ...props }: ContentSectionsProps) => {
   return (
     <div className="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
       <div className="absolute inset-0 -z-10 overflow-hidden">
@@ -106,6 +113,98 @@ const ContentSections = ({...props}: ContentSectionsProps) => {
   )
 }
 
+interface ImageSectionsProps {
+  onClick?: () => void;
+}
+
+const ImageSections = ({ ...props }: ImageSectionsProps) => {
+  return (
+    <div className="-my-4 flex justify-center gap-5 overflow-hidden py-4 sm:gap-8">
+      <div className="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl rotate-2">
+        <Image
+          alt=""
+          loading="lazy"
+          width={3744}
+          height={5616}
+          decoding="async"
+          data-nimg={1}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ color: "transparent" }}
+          sizes="(min-width: 640px) 18rem, 11rem"
+          // srcSet={ImageSection1}
+          src={ImageSection1}
+        />
+      </div>
+      <div className="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl -rotate-2">
+        <Image
+          alt=""
+          loading="lazy"
+          width={3936}
+          height={2624}
+          decoding="async"
+          data-nimg={1}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ color: "transparent" }}
+          sizes="(min-width: 640px) 18rem, 11rem"
+          // srcSet={ImageSection1}
+          src={ImageSection2}
+        />
+      </div>
+      <div className="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl rotate-2">
+        <Image
+          alt=""
+          loading="lazy"
+          width={5760}
+          height={3840}
+          decoding="async"
+          data-nimg={1}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ color: "transparent" }}
+          sizes="(min-width: 640px) 18rem, 11rem"
+          // srcSet={ImageSection1}
+          src={ImageSection3}
+        />
+      </div>
+      <div className="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl rotate-2">
+        <Image
+          alt=""
+          loading="lazy"
+          width={2400}
+          height={3000}
+          decoding="async"
+          data-nimg={1}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ color: "transparent" }}
+          sizes="(min-width: 640px) 18rem, 11rem"
+          // srcSet={ImageSection1}
+          src={ImageSection4}
+        />
+      </div>
+      <div className="relative aspect-[9/10] w-44 flex-none overflow-hidden rounded-xl bg-zinc-100 dark:bg-zinc-800 sm:w-72 sm:rounded-2xl -rotate-2">
+        <Image
+          alt=""
+          loading="lazy"
+          width={4240}
+          height={2384}
+          decoding="async"
+          data-nimg={1}
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ color: "transparent" }}
+          sizes="(min-width: 640px) 18rem, 11rem"
+          // srcSet={ImageSection1}
+          src={ImageSection5}
+        />
+      </div>
+    </div>
+  )
+}
+
+export type {
+  ContentSectionsProps,
+  ImageSectionsProps
+}
+
 export {
-  ContentSections
+  ContentSections,
+  ImageSections
 }
