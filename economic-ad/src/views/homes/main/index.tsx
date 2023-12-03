@@ -5,8 +5,9 @@ export default () => {
     const channel = new BroadcastChannel("auth_sync");
 
     const syncItUp = () => {
-        channel.postMessage(`Sent "sync" message`);
-        setStatus(`Sent "sync" message`);
+        const messageTest: string = `Sent "sync" message`;
+        setStatus(messageTest);
+        channel.postMessage(messageTest);
     };
 
     useEffect(() => {

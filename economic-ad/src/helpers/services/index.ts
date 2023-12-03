@@ -1,1 +1,1 @@
-export { broadcastChannelBrowser } from './BroadcastChannelBrowser.service';
+export { BroadcastChannelBrowser } from './BroadcastChannelBrowser.service';

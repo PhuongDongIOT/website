@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import videojs from 'video.js';
-import 'videojs-youtube';
+
+import 'video.js/dist/video-js.css';
 
 interface PlayerProps {
     techOrder: string[]
@@ -31,12 +32,11 @@ const Player = (props: PlayerProps) => {
     }, [props, videoEl])
 
     return (
-        <>
-            <h1>The implementation below is using react functions</h1>
+        <div className="w-full h-96">
             <div data-vjs-player>
-                <video ref={onVideo} className="video-js" playsInline />
+                <video ref={onVideo} className="video-js w-full h-full" playsInline />
             </div>
-        </>
+        </div>
     )
 }
 

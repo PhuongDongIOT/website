@@ -7,13 +7,12 @@ const withPWA = require('next-pwa')({
 
 const withMDX = require('@next/mdx')({
     extension: /\.mdx?$/,
-  })
+})
 
 /** @type {import('next').NextConfig} */
 const { i18n } = require('./i18n.config')
 
 const nextConfig = {
-    runtime: 'experimental-edge',
     pageExtensions: ['ts', 'tsx', 'mdx'],
     distDir: 'build',
     typescript: {
