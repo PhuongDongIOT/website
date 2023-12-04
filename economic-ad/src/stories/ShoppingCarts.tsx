@@ -1,4 +1,4 @@
-import { Fragment, useState } from 'react'
+import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
 
@@ -28,15 +28,21 @@ const products = [
 ]
 
 interface ShoppingCartsProps {
+    isShow: boolean;
     onClick?: () => void;
 }
 
-const ShoppingCarts = ({}: ShoppingCartsProps) => {
-  const [open, setOpen] = useState(true)
+const ShoppingCarts = ({isShow, onClick,  ...props}: ShoppingCartsProps) => {
+
+  const handleClose = () => {
+    if(onClick) {
+      onClick()
+    }
+  }
 
   return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
+    <Transition.Root show={isShow} as={Fragment}>
+      <Dialog as="div" className="relative z-10" onClose={() => handleClose()}>
         <Transition.Child
           as={Fragment}
           enter="ease-in-out duration-500"
@@ -70,7 +76,7 @@ const ShoppingCarts = ({}: ShoppingCartsProps) => {
                           <button
                             type="button"
                             className="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
-                            onClick={() => setOpen(false)}
+                            onClick={(evt: React.MouseEvent<HTMLButtonElement>) => handleClose()}
                           >
                             <span className="absolute -inset-0.5" />
                             <span className="sr-only">Close panel</span>
@@ -142,7 +148,7 @@ const ShoppingCarts = ({}: ShoppingCartsProps) => {
                           <button
                             type="button"
                             className="font-medium text-indigo-600 hover:text-indigo-500"
-                            onClick={() => setOpen(false)}
+                            onClick={(evt: React.MouseEvent<HTMLButtonElement>) => handleClose()}
                           >
                             Continue Shopping
                             <span aria-hidden="true"> &rarr;</span>
@@ -164,3 +170,5 @@ const ShoppingCarts = ({}: ShoppingCartsProps) => {
 export {
     ShoppingCarts
 }
+
+export default ShoppingCarts

@@ -1,4 +1,5 @@
 import { Elysia, t } from 'elysia';
+import { logger } from '~utils/logger.utils';
 
 export const wsSocketsPlugin = new Elysia()
     // Simple chatroom with custom room id and name
@@ -24,15 +25,17 @@ export const wsSocketsPlugin = new Elysia()
               message: `${name} has entered the room`,
               user: '[SYSTEM]',
               time: Date.now()
-          })
+          })          
+          logger.warn(`${room} - ${name}`)
       },
-      message(ws, { message }) {
+      message(ws, { message }: any) {
           const {
               data: {
                   params: { room, name }
               }
           } = ws
 
+          logger.warn(`${room} - ${name}`)
           ws.publish(room, {
               message,
               user: name,

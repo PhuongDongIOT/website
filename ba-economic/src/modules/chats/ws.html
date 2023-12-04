@@ -34,7 +34,7 @@
                 const room = event.target[1].value
 
                 const socket = new WebSocket(
-                    `ws://localhost:3000/ws/${room}/${user}`
+                    `ws://localhost:4001/ws/${room}/${user}`
                 )
 
                 const mirror = document.getElementById('mirror')

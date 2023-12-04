@@ -1,9 +1,9 @@
-const withPWA = require('next-pwa')({
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development'
-})
+// const withPWA = require('next-pwa')({
+//     dest: 'public',
+//     register: true,
+//     skipWaiting: true,
+//     disable: process.env.NODE_ENV === 'development'
+// })
 
 const withMDX = require('@next/mdx')({
     extension: /\.mdx?$/,
@@ -30,4 +30,5 @@ const nextConfig = {
 // });
 
 // module.exports = withBundleAnalyzer(withPWA(nextConfig));
-module.exports = withPWA(withMDX(nextConfig));
+// module.exports = withPWA(withMDX(nextConfig));
+module.exports = withMDX(nextConfig);

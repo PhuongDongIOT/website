@@ -1,69 +1,147 @@
 'use client'
 
-import { useEffect, useState } from "react";
+import { useTransition , useEffect, useState } from "react";
 import { mainConfig } from '~configs/main.config';
-
+import Peer from 'peerjs';
 import { Player } from '~stories/Player';
+import { useForm, Resolver } from "react-hook-form"
+
+type FormValues = {
+    firstName: string
+    userId: string
+    romId: string
+}
+
+const resolver: Resolver<FormValues> = async (values) => {
+    return {
+        values: values.firstName ? values : {},
+        errors: !values.firstName
+            ? {
+                firstName: {
+                    type: "required",
+                    message: "This is required.",
+                },
+            }
+            : {},
+    }
+}
 
 export default () => {
-    const [ urlStreamVideo, setUrlStreamVideo ] = useState<any>(null)
-    const constraints: any = mainConfig.isClientSide ? window.constraints = {
-        audio: false,
-        video: true
-    }: null;
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormValues>({ resolver })
 
-    function handleSuccess(stream: any) {
-        const videoTracks = stream.getVideoTracks();
-        setUrlStreamVideo(videoTracks);
-        console.log('Got stream with constraints:', constraints);
-        console.log(`Using video device: ${videoTracks[0].label}`);
-      }
-
-      const handleError = (error: any) => {
-        console.log(error)
-      }
-
-    const init = async(evt: any) => {
-        if(mainConfig.isClientSide) {
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                handleSuccess(stream);
-                evt.target.disabled = true;
-              } catch (e) {
-                handleError(e);
-              }
-        }
-      }
+    const [userName, setUserName] = useState<string>('');
+    const [userId, setUserId] = useState<string>('');
+    const [romId, setRomId] = useState<string>('');
 
 
-
+    const onSubmit = handleSubmit((data: FormValues) => {
+        const { firstName, userId, romId } = data;
+        setUserName(firstName);
+        setUserId(userId);
+        setRomId(romId);
+    })
+    
     return (
         <div className="App">
-            <div>
-                Open this URL{" "}
-                <span role="img" aria-label="hand pointing up">
-                    👆
-                </span>{" "}
-                in a different tab
-            </div>
-            <button className="btn" onClick={init}>
-                Sync It Up!
-            </button>
-            <Player
-                techOrder={['youtube']}
-                autoplay={false}
-                controls={true}
-                sources={
-                    [
-                        {
-                            src: urlStreamVideo,
-                            type: 'application/x-mpegURL',
-                        },
-                    ]
-                } />
-            <video controls autoPlay={true}>
-                <source src={urlStreamVideo} type="video/mp4" />
-            </video>
+            {!userId && <form onSubmit={onSubmit}>
+                <input {...register("firstName")} placeholder="Bill" />
+                {errors?.firstName && <p>{errors.firstName.message}</p>}
+
+                <input {...register("userId")} placeholder="Luo" />
+                <input {...register("romId")} placeholder="Luo" />
+
+                <input type="submit" />
+            </form>}
+
+            {userId && <PostComponent userId={userId} romId={romId} userName={userName} />}
         </div>
     );
 };
+
+interface TypePostComponent {
+    userName: string;
+    userId: string;
+    romId: string;
+}
+
+type FormValuesMesage = {
+    chatMessage: string
+}
+
+type TypeUserMessage = {
+    user: string,
+    message: string
+}
+
+const PostComponent = ({ userName, userId, romId }: TypePostComponent) => {
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormValuesMesage>({})
+    const [chatMessages, setChatMessages] = useState<TypeUserMessage[]>([])
+
+    const socket = new WebSocket(
+        `ws://localhost:4001/ws/${romId}/${userId}`
+    )
+
+    useEffect(() => {
+
+        socket.addEventListener('open', function (event: any) {
+            console.log('open')
+        })
+    
+        socket.addEventListener('message', function (event: any) {
+            const { user, message } = JSON.parse(event.data)
+            if (message) {
+                if(message.user !== userName) {
+                    if(message.user) {
+                        setChatMessages((prevMessage: TypeUserMessage[]) => [...prevMessage, message])
+                    }
+                }
+            }
+        })
+    }, [])
+
+    const onSubmit = handleSubmit((data: FormValuesMesage) => {
+        const { chatMessage } = data;
+        try {
+            const detailMesage: TypeUserMessage = {
+                user: userName,
+                message: chatMessage
+            }
+            setChatMessages((prevMessage: TypeUserMessage[]) => [...prevMessage, detailMesage]);
+            socket.send(
+                JSON.stringify({
+                    message: detailMesage
+                })
+            )
+        } catch (errors: any) {
+            console.log(errors)
+        }
+    })
+
+    return (
+        <div className="App">
+            <h1>{userName}</h1>
+            <form onSubmit={onSubmit}>
+                <input {...register("chatMessage")} placeholder="Luo" />
+                <input type="submit" />
+            </form>
+
+            {
+                chatMessages && chatMessages.map((message: TypeUserMessage) => (
+                    <>
+                        <p>{ message.user }</p>
+                        <p>{ message.message }</p>
+                    </>
+                ))
+            }
+        </div>
+    )
+}

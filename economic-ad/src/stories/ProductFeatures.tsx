@@ -58,6 +58,12 @@ const ProductFeatures = ({ ...props }: ProductFeaturesProps) => {
     )
 }
 
+export type {
+    ProductFeaturesProps
+}
+
 export {
     ProductFeatures
 }
+
+export default ProductFeatures;

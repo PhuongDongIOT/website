@@ -5,6 +5,7 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "bun:dev": "bun dev --origin http://localhost:3000 --port 4000",
     "dev": "bun run --watch src/index.ts",
     "prisma": "prisma init",
     "prisma:init": "bunx prisma init --datasource-provider sqlite",

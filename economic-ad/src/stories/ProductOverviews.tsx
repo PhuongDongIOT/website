@@ -61,7 +61,7 @@ interface ProductOverviewsProps {
     onClick?: () => void
 }
 
-const ProductOverviews = ({}: ProductOverviewsProps) => {
+const ProductOverviews = ({ }: ProductOverviewsProps) => {
     const [selectedColor, setSelectedColor] = useState(product.colors[0])
     const [selectedSize, setSelectedSize] = useState(product.sizes[2])
 
@@ -311,6 +311,12 @@ const ProductOverviews = ({}: ProductOverviewsProps) => {
     )
 }
 
+export type {
+    ProductOverviewsProps
+}
+
 export {
     ProductOverviews
 }
+
+export default ProductOverviews

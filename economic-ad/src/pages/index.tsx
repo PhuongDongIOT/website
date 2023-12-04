@@ -6,7 +6,8 @@ import { edenTreaty } from '@elysiajs/eden';
 import { App } from '../../../ba-economic/src/index';
 import { logger } from '~utils/logger.utils';
 
-import { HeroComponent } from '~layouts/Home';
+import HomeComponent from '~/views/homes/main';
+
  
 type Repo = {
   name: string
@@ -63,7 +64,7 @@ export default function Index({
   const typeResponse = typeof repo  
   if(typeResponse === 'string'|| true) {
     return (
-      <HeroComponent />
+      <HomeComponent />
     )
   } else {
     return pong

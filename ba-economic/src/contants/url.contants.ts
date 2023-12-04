@@ -1,7 +1,8 @@
 type TypeUrlRegrex = Array<string>;
 
 const urlRegrex: TypeUrlRegrex = [
-    '\/api\\/*.'
+    '\/api\\/*.',
+    '\/ws\\/*.'
 ];
 
 export {

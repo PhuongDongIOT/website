@@ -13,7 +13,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
+let isShowModal = true;
 export const Primary: Story = {
   args: {
+    isShow: isShowModal
   },
 };

@@ -9,7 +9,7 @@ const app = new Elysia()
   .get('/', ({ set }: any) => {
     set.redirect = '/swagger'
   })
-  .listen(env.APP_PORT ?? 3001);
+  .listen(env.APP_PORT ?? 4001);
 
 logger.info(
   `🦊 Elysia is running! Access Swagger UI at http://${app.server?.hostname}:${app.server?.port}/swagger`,
