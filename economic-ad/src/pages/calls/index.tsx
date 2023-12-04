@@ -1,6 +1,6 @@
 'use client'
 
-import  MainHome from '~views/boxs/main';
+import MainCall from '~views/calls/main';
 import { mainConfig } from '~configs/main.config';
 
 
@@ -9,10 +9,9 @@ function Index() {
   if(mainConfig) {
     return (
       <>
-        <MainHome />
+        <MainCall />
       </>
     )
-
   }
 }
 
