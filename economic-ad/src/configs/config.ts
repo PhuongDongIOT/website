@@ -6,6 +6,10 @@ const envSchema = Type.Object({
   GITHUB_ID: Type.String(),
   GITHUB_SECRET: Type.String(),
   API_BASE_URL: Type.String(),
+  NEXT_PUBLIC_SUPABASE_URL: Type.String(),
+  NEXT_PUBLIC_SUPABASE_KEY: Type.String(),
+  NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: Type.String(),
+  STRIPE_SECRET_KEY: Type.String(),
 });
 // TODO: this is ugly, find a better way to do this
 if (!Value.Check(envSchema, Bun.env)) throw new Error('Invalid env variables');

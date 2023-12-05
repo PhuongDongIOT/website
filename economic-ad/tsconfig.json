@@ -40,6 +40,8 @@
       "~views/*": ["./src/views/*"],
       "~addons/*": ["./src/addons/*"],
       "~stories/*": ["./src/stories/*"],
+      "~lib/*": ["./src/lib/*"],
+      "~actions/*": ["./src/actions/*"],
     }
   },
   "include": [

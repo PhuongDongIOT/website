@@ -1,8 +1,10 @@
+import React from 'react';
+
 interface BadgesProps {
-    onClick?: () => void;
+    onClick(event: React.MouseEvent<HTMLButtonElement>): () => void;
 }
 
-const Badges = ({}: BadgesProps) => {
+const Badges: React.FunctionComponent<BadgesProps> = ({...props}) => {
     return (
         <>
             <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10">
