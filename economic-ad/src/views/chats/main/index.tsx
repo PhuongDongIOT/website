@@ -1,9 +1,6 @@
 'use client'
 
-import { useTransition , useEffect, useState } from "react";
-import { mainConfig } from '~configs/main.config';
-import Peer from 'peerjs';
-import { Player } from '~stories/Player';
+import { useEffect, useState, useTransition } from "react";
 import { useForm, Resolver } from "react-hook-form"
 
 type FormValues = {
@@ -36,14 +33,21 @@ export default () => {
     const [userName, setUserName] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
     const [romId, setRomId] = useState<string>('');
+    const [isPending, startTransition] = useTransition();
 
 
     const onSubmit = handleSubmit((data: FormValues) => {
-        const { firstName, userId, romId } = data;
-        setUserName(firstName);
-        setUserId(userId);
-        setRomId(romId);
+        startTransition(() => {
+            const { firstName, userId, romId } = data;
+            setUserName(firstName);
+            setUserId(userId);
+            setRomId(romId);            
+        })
     })
+
+    if(isPending) {
+        return <b className="pending">Loading...</b>;
+    }
     
     return (
         <div className="App">
