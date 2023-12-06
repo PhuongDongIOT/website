@@ -1,0 +1,1 @@
+export { customGenerationFunction } from './custom-generation.function';

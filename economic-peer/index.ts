@@ -1,3 +1,9 @@
 import { PeerServer } from "peer";
 
-PeerServer({ port: 9001, path: "/" });
+import { customGenerationFunction } from '~utils/strings';
+
+const peerServer = PeerServer({
+	port: 9001,
+	path: "/",
+	generateClientId: customGenerationFunction,
+});
