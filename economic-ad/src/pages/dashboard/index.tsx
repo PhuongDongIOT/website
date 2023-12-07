@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TinyliciousClient } from "@fluidframework/tinylicious-client";
 import { SharedMap } from "fluid-framework";
-import { createBrowserHistory } from "history";
-
-import ErrorBoundary from '~components/error/ErrorBoundary';
+import { mainConfig } from '~configs/main.config';
  
 export default function Index() {
 
@@ -14,7 +12,7 @@ export default function Index() {
     };
 
     let container;
-    if (typeof window !== "undefined") {
+    if (mainConfig.isClientSide) {
       // Client-side-only code
       const containerId = window.location.hash.substring(1);
       if (!containerId) {
@@ -41,7 +39,6 @@ useEffect(() => {
     if (fluidSharedObjects) {
     const { sharedTimestamp } = fluidSharedObjects;
     const updateLocalTimestamp = () => setLocalTimestamp({ time: sharedTimestamp.get("time") });
-    console.log('hihi')
     updateLocalTimestamp();
     sharedTimestamp.on("valueChanged", updateLocalTimestamp);
     return () => { sharedTimestamp.off("valueChanged", updateLocalTimestamp) }
@@ -53,7 +50,7 @@ useEffect(() => {
         return; // Do nothing because there is no Fluid SharedMap object yet.
     }
 }, [fluidSharedObjects])
-  console.log(localTimestamp)
+
     return (
       localTimestamp ?
         <div className="App">

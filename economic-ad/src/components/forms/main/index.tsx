@@ -1,0 +1,1 @@
+export { Information } from './components/Information';
