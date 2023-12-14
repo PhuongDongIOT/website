@@ -6,6 +6,15 @@ export interface ArticleFilterParams {
   export interface ArticleDetailParams {
     id: number;
   }
+
+  export interface UploadFormParams {
+    name: 'string';
+    email: 'string';
+  }
+
+  export type UploadFormUserParams = {
+    user: UploadFormParams
+  }
   
   export interface UploadFileParams {
     file: File;
@@ -105,4 +114,8 @@ export interface ArticleFilterParams {
     status: UserSliceType['status'];
     message?: string;
     searchTag: string;
+  }
+
+  export interface FormSliceType {
+    status: 'loading' | 'loaded' | 'error' | '';
   }

@@ -5,8 +5,8 @@ import { mainConfig } from '~configs/main.config';
 
 const VideoRoom = () => {
     if(mainConfig.isDevEnv) {
-      const [peerId, setPeerId] = useState('');
-      const [remotePeerIdValue, setRemotePeerIdValue] = useState('');
+      const [peerId, setPeerId] = useState<string>('');
+      const [remotePeerIdValue, setRemotePeerIdValue] = useState<string>('');
       const remoteVideoRef = useRef<HTMLVideoElement & any >(null);
       const currentUserVideoRef = useRef<HTMLVideoElement& any>(null);
       const peerInstance = useRef<any>(null);
@@ -47,7 +47,7 @@ const VideoRoom = () => {
       }, []);
 
       
-      const call = (remotePeerId) => {
+      const call = (remotePeerId: string) => {
         var getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
     
         getUserMedia({ video: true, audio: true }, (mediaStream: any | null) => {

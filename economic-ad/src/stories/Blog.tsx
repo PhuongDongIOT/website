@@ -9,7 +9,7 @@ interface BlogProps {
 const Blog = ({ cardBlogList }: BlogProps) => {
     return (
         <>
-            <div className="bg-white pb-10 pt-20 dark:bg-dark lg:pb-20 lg:pt-32">
+            <div className="pt-20 pb-10 dark:bg-dark lg:pb-20 lg:pt-32">
                 <div>
                     <div className="-mx-4 flex flex-wrap">
                         <div className="w-full px-4">
@@ -28,7 +28,7 @@ const Blog = ({ cardBlogList }: BlogProps) => {
                         </div>
                     </div>
 
-                    <div className="-mx-4 flex flex-wrap">
+                    <div className="-mx-4 flex flex-wrap justify-center">
                         {
                             cardBlogList.map((cardBlog, index) => (
                                 <div key={index} className="md:w-1/3">

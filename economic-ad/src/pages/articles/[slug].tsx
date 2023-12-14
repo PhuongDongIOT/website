@@ -14,7 +14,7 @@ import articleSlice from '~redux/features/articleSlice';
 import { ReduxState, reduxWrapper } from '~redux/store';
 import { getRouterParam, getIdFromSlug } from '~utils/histoty.utils';
 import { mainConfig } from '~configs/main.config';
-  import ArticleDetail from '~/views/articles/detail';
+import ArticleDetail from '~/views/articles/detail';
 import userSlice from '~redux/features/userSlice';
 import HeadMeta from '~layouts/HeadMeta';
 import { Article } from '~types/article-types';
@@ -31,7 +31,8 @@ const ArticleDetails: NextPage = ({
   const { data: reactQueryData } = useQuery({
     queryKey: ['articles', { id: articleId }],
     queryFn: reactQueryFn.getArticleDetail,
-    enabled: !mainConfig.isReduxForStaticPropsEnabled && articleId > 0 }
+    enabled: !mainConfig.isReduxForStaticPropsEnabled && articleId > 0
+  }
   );
 
   const articleDetail = mainConfig.isReduxForStaticPropsEnabled
@@ -60,7 +61,7 @@ export const getStaticPropsFromReactQuery: GetStaticProps = async ({ params }) =
 
   const articleId = getIdFromSlug(getRouterParam(params?.slug)) || 0;
 
-  await queryClient.prefetchQuery({    
+  await queryClient.prefetchQuery({
     queryKey: ['articles', { id: articleId }],
     queryFn: reactQueryFn.getArticleDetail,
   }
@@ -81,7 +82,7 @@ export const getStaticPropsFromRedux: GetStaticProps = reduxWrapper.getStaticPro
 
     store.dispatch(articleSlice.actions.getArticleDetailRequest({ id: articleId }));
     store.dispatch(END);
-    if(store.sagaTask) {
+    if (store.sagaTask) {
       await store.sagaTask.toPromise();
     }
 

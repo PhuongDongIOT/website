@@ -1,12 +1,14 @@
 import { call, takeLatest, put } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
 import articleSlice from './features/articleSlice';
+import formSlice from './features/formSlice';
 import * as articleApi from '~apis/article.apis';
 import * as userApi from '~apis/user.api';
+import * as formApi from '~apis/form.api';
 
 import {
-  Article, ArticleFilterParams, AvatarResponse, UploadFileParams,
-} from '../types/article-types';
+  Article, ArticleFilterParams, AvatarResponse, UploadFileParams, UploadFormParams
+} from '~types/article-types';
 import userSlice from './features/userSlice';
 
 export function* fetchArticles(action: PayloadAction<ArticleFilterParams>) {
@@ -52,12 +54,29 @@ export function* uploadAvatar(action: PayloadAction<UploadFileParams>) {
   }
 }
 
+export function* uploadForm(action: PayloadAction<UploadFormParams>) {
+  try {
+    const response:UploadFormParams = yield call(formApi.uploadForm, action.payload);
+
+    console.log('🚀 ~ file: saga.ts ~ line 40 ~ function*uploadAvatar ~ response', response);
+    return response
+    // yield put(userSlice.actions.uploadAvatarSuccess(response));
+  } catch (e: any) {
+    console.log('🚀 ~ file: saga.ts ~ line 40 ~ function*uploadAvatar ~ error', e);
+
+    // yield put(articleSlice.actions.getArticleDetailFailure(e.message));
+  }
+}
+
 export default function* rootSaga() {
   yield takeLatest(articleSlice.actions.getArticlesRequest, fetchArticles);
   yield takeLatest(articleSlice.actions.getArticleDetailRequest, fetchArticleDetail);
 
   // uploadAvatarRequest
   yield takeLatest(userSlice.actions.uploadAvatarRequest, uploadAvatar);
+
+  
+  yield takeLatest(formSlice.actions.uploadFromRequest, uploadForm);
 
   // yield takeLatest(userSlice.actions.visit, fetchNumberSaga)
 }

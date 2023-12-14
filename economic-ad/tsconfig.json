@@ -26,6 +26,7 @@
       "~/*": ["./src/*"],
       "~layouts/*": ["./src/layouts/*"],      
       "~components/*": ["./src/components/*"],
+      "~hooks/*": ["./src/hooks/*"],
       "~utils/*": ["./src/utils/*"],      
       "~state/*": ["./src/states/*"],
       "~helpers/*": ["./src/helpers/*"],

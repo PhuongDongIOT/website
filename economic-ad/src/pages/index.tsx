@@ -1,6 +1,6 @@
 'use client'
 
-import type { InferGetStaticPropsType, GetStaticProps } from 'next'
+import type { InferGetStaticPropsType, GetStaticProps } from 'next';
 import { edenTreaty } from '@elysiajs/eden';
 
 import { App } from '../../../ba-economic/src/index';

@@ -30,7 +30,7 @@ export const getArticleDetail = async ({ id }:ArticleDetailParams):Promise<Artic
   try {
     console.log(apiEndpoint)
     const response = await axios.get(apiEndpoint);
-    console.log(response)
+    
     return response.data;
   } catch (error) {
     console.log('🚀 ~ file: article-api.ts ~ line 27 ~ getArticleDetail ~ apiEndpoint', apiEndpoint, error);

@@ -6,4 +6,10 @@ function hasOwnProperty<K extends string | number | symbol>(
     return Object.prototype.hasOwnProperty.call(obj, key);
 }
 
-export { hasOwnProperty };
+function checkPropertyObject(key: string, obj: object): boolean {
+    const result = Object.prototype.hasOwnProperty.call(obj, key)
+    return result;
+}
+
+export { hasOwnProperty, checkPropertyObject };
+

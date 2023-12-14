@@ -18,6 +18,9 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
+    env: {
+        customKey: 'my-value',
+    },
     i18n,
 }
 

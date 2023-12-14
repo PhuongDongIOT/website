@@ -25,10 +25,10 @@ export const usersPluginRest = new Elysia()
     )
     .post(
       '',
-      ({ body, store } : any) => store.usersService.createUser(body.user,),
+      ({ body, store } : any) => console.log(body),
       {
         body: InsertUserSchemaElysia,
-        response: ReturnedUserSchema,
+        // response: ReturnedUserSchema,
         detail: {
           summary: 'Register',
         },

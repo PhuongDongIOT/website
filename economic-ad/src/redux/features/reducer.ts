@@ -5,15 +5,18 @@ import { mainConfig } from '~configs/main.config';
 
 import userSlice from './userSlice';
 import articleSlice from './articleSlice';
+import formSlice from './formSlice';
 
 interface ReducerState {
   [userSlice.name] : ReturnType<typeof userSlice.reducer>;
+  [articleSlice.name]: ReturnType<typeof articleSlice.reducer>;
   [articleSlice.name]: ReturnType<typeof articleSlice.reducer>;
 }
 
 const sliceReducer =  {
   [userSlice.name]   : userSlice.reducer,
   [articleSlice.name]: articleSlice.reducer,
+  [formSlice.name]: formSlice.reducer,
 };
 
 const rootReducer = (state: any, action: AnyAction): CombinedState<ReducerState> => {

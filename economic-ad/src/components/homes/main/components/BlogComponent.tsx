@@ -31,7 +31,7 @@ const cardBlogList: CardBlogProps[] = [
 export function BlogComponent() {
     if (mainConfig.isDevEnv) {
         return (
-            <div className="px-8">
+            <div>
                 <Blog cardBlogList={cardBlogList} />
             </div>
         )

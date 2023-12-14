@@ -141,6 +141,7 @@ export class Api {
      * @memberof Api
      */
     public post<T, B, R = AxiosResponse<T>> (url: string, data?: B, config?: AxiosRequestConfig): Promise<R> {
+        console.log(url, data)
         return this.api.post(url, data, config);
     }
 

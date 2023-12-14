@@ -1,1 +1,1 @@
-export { hasOwnProperty } from './has-own-property';
+export { hasOwnProperty, checkPropertyObject } from './has-own-property';

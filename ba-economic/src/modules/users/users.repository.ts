@@ -5,6 +5,7 @@ export class UsersRepository {
     constructor(private readonly context: Context) {}
 
     async createUser(user: UserCreated) {
+        console.log(user)
         const newUser = await this.context.prisma.user.create({
             data: user,
           })
