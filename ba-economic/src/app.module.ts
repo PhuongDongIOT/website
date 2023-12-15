@@ -19,7 +19,7 @@ import {
   wsSocketsPlugin,
   graphqlsPlugin, 
   filesPlugin } from '~modules/index';
-import { title, version, description } from '../package.json';
+import pkg from '../package.json';
 import { useCheckRoute } from '~utils/route.auth';
 import { useHandleEncodeAuth } from '~utils/jwt.auth';
 import { logger } from '~utils/logger.utils'
@@ -30,6 +30,8 @@ import {
   BadRequestError,
   ERROR_CODE_STATUS_MAP,
 } from './errors';
+
+const { title, version, description } = pkg;
 
 
 const t = initTRPC.create();

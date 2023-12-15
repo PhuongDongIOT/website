@@ -20,7 +20,9 @@
     "prisma:generate": "bunx prisma generate --schema prisma/postgresql/schema.postgresql.prisma & bunx prisma generate --schema prisma/sqlite/schema.sqlite.prisma",
     "start:postgresql": "sudo service postgresql start",
     "start:redis": "redis-server",
-    "kill:port": "sudo kill -9 `sudo lsof -t -i:3000`"
+    "kill:port": "sudo kill -9 `sudo lsof -t -i:3000`",
+    "mongo:start": "sudo systemctl start mongod",
+    "mongo:reload": "sudo systemctl daemon-reload"
   },
   "dependencies": {
     "@colors/colors": "^1.6.0",

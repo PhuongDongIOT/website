@@ -26,7 +26,6 @@
     "dev:tina": "tinacms dev -c \"next dev\"",
     "build:tina": "tinacms build && next build",
     "start:tina": "tinacms build && next start",
-    "prepare": "husky install",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "init:trigger": "bunx @trigger.dev/cli@latest init -k tr_dev_fczOa9rgQFVkhBxDEc9Q -t https://cloud.trigger.dev"
