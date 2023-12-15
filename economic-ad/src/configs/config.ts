@@ -16,7 +16,7 @@ const env_variable = {
   STRIPE_SECRET_KEY: 'sk_12345',
   STRIPE_WEBHOOK_SECRET: 'whsec_1234',
   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: 'pk_test_d2lzZS1yYXktMjYuY2xlcmsuYWNjb3VudHMuZGV2JA',
-  CLERK_SECRET_KEY: 'sk_test_V8TiqgkWijRa8O4l1N9tWCQr9mMyHkB8i8vFeegEQX'
+  CLERK_SECRET_KEY: 'sk_test_V8TiqgkWijRa8O4l1N9tWCQr9mMyHkB8i8vFeegEQX',
 }
 
 const envSchema = Type.Object({
