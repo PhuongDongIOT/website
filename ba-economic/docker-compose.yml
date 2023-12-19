@@ -8,7 +8,11 @@ services:
     entrypoint: []
     # execute bun install before we start the dev server in watch mode
     command: "/bin/sh -c 'bun install && bun run --watch src/index.ts'"
-    # expose the right ports
+    # expose the right ports 
     ports: ["3000:3000"]
     # setup a host mounted volume to sync changes to the container
     volumes: ["./:/home/bun/app"]
+
+  redis:
+    image: redis
+    ports: ["6379:6379"]

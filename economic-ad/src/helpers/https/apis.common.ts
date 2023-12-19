@@ -9,7 +9,7 @@ class ApiComon {
 
 
     async postCommon<T>(path: string, data: T & object):Promise<any> {
-        const response: any = await this.apis.post(this.pathApis + path, data, this.config)
+        const response: any = await this.apis.post(this.pathApis + path, data)
         return response;
     } 
 }

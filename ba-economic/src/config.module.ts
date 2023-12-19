@@ -4,6 +4,7 @@ import { Value } from '@sinclair/typebox/value';
 const envSchema = Type.Object({
   APP_PORT: Type.String(),
   REDIS_PORT: Type.String(),
+  REDIS_HOST: Type.String(),
   JWT_SECRET: Type.String(),
   JWT_NAME: Type.String(),
   JWT_AUDIENCE: Type.String(),

@@ -22,7 +22,17 @@
     "start:redis": "redis-server",
     "kill:port": "sudo kill -9 `sudo lsof -t -i:3000`",
     "mongo:start": "sudo systemctl start mongod",
-    "mongo:reload": "sudo systemctl daemon-reload"
+    "mongo:reload": "sudo systemctl daemon-reload",
+    "docker:redis": "sudo docker run -d --name redis-stack-server -p 6379:6379 redis/redis-stack-server:latest",
+    "connect:redis": "sudo docker exec -it redis-stack redis-cli",
+    "persistence:redis": "sudo docker run -v /local-data/:/data redis/redis-stack:latest",
+    "config:redis": "sudo docker run -v `pwd`/local-redis-stack.conf:/redis-stack.conf -p 6379:6379 -p 8001:8001 redis/redis-stack:latest",
+    "port:redis": "sudo docker run -p 10001:6379 -p 13333:8001 redis/redis-stack:latest",
+    "stop:container": "sudo docker stop $(sudo docker ps -aq)",
+    "kill:container": "sudo docker rm $(sudo docker ps -aq)",
+    "kill:image": "sudo docker rmi $(sudo docker images -q)",
+    "kill:all": "bun stop:container && bun kill:container && bun kill:image",
+    "docker:up": "sudo docker compose up"
   },
   "dependencies": {
     "@colors/colors": "^1.6.0",

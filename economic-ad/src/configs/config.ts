@@ -4,7 +4,7 @@ import { Value } from '@sinclair/typebox/value';
 
 const env_variable = {
   PORT: '7070',
-  API_BASE_URL: 'http://localhost:4000/api/',
+  API_BASE_URL: 'http://localhost:4000/api',
   NODE_ENV: 'development',
   ANALYZE: 'true',
   GITHUB_ID: '999',

@@ -22,13 +22,13 @@ export const usersPluginRest = new Elysia()
               description: 'Optional extended description in Markdown.'
           },
         },
-    )
+    ) 
     .post(
       '',
-      ({ body, store } : any) => console.log(body),
+      ({ body, store } : any) => store.usersService.createUser(body.user),
       {
         body: InsertUserSchemaElysia,
-        // response: ReturnedUserSchema,
+        response: ReturnedUserSchema,
         detail: {
           summary: 'Register',
         },

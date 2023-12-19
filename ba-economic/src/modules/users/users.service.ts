@@ -23,6 +23,7 @@ export class UsersService {
 
     async createUser(user: UserCreated) {
         user.password = await Bun.password.hash(user.password);
+        console.log(user)
         const newUser = await this.repository.createUser(user);
         if (!newUser) {
           throw new BadRequestError('Email or username is already taken');

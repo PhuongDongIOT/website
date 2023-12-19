@@ -9,14 +9,20 @@ type UserResponse = {
     name : string | null,
 }
 
-type PassHash = {
-    password: string,
+interface PassHash {
+    password: string;
 }
 
-type UserCreated = Omit<User, "id"> & PassHash
+type UserCreate = Omit<User, "id"> & PassHash
+
+type TypeChangeUserCreate<T extends Object> = {
+    [K in keyof T]: T[K]
+} & {}
+
+type UserCreated = TypeChangeUserCreate<UserCreate>
 
 export {
     User,
     UserResponse,
-    UserCreated,
+    UserCreated,        
 }

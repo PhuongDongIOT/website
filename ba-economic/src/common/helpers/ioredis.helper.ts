@@ -2,8 +2,8 @@ import IORedis from 'ioredis';
 import { env } from '~/config.module';
 import { logger } from '~utils/logger.utils';
 
-const connection = new IORedis(env.REDIS_PORT);
-
+const connection = new IORedis(`${env.REDIS_HOST}:${env.REDIS_PORT}`);
+console.log(`${env.REDIS_HOST}:${env.REDIS_PORT}`)
 connection.on('error', (err: any) => { console.log(`>>>> Redis Error: ${err}`) })
 logger.info(`<<<< Connected to Redis >>>>`)
 
