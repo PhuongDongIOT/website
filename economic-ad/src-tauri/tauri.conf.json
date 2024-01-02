@@ -6,7 +6,7 @@
     "distDir": "../out"
   },
   "package": {
-    "productName": "economic-ad",
+    "productName": "economic",
     "version": "0.1.0"
   },
   "tauri": {
@@ -57,7 +57,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "economic-ad",
+        "title": "economic",
         "width": 800
       }
     ]

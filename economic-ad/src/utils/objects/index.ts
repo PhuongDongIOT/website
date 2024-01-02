@@ -1,0 +1,1 @@
+export { hasOwnProperty, checkPropertyObject } from './has-own-property';

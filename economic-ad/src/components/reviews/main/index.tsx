@@ -1,0 +1,1 @@
+export { MeshCanvas } from './components/MeshCanvas';

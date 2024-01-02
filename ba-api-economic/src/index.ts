@@ -1,7 +1,33 @@
-import { Elysia } from "elysia";
+import { Elysia } from 'elysia';
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+import { setupApp } from './app.module';
+import { env } from './config.module';
+
+const app = new Elysia()
+  .use(setupApp)
+  .get('/', ({ set }: any) => {
+    set.redirect = '/swagger'
+  })
+  .listen(env.APP_PORT ?? 3000);
 
 console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+  `🦊 Elysia is running! Access Swagger UI at http://${app.server?.hostname}:${app.server?.port}/swagger`,
 );
+export default app
+export type App = typeof app
+
+// server.ts
+// import { Elysia, t } from 'elysia'
+
+// const app = new Elysia()
+//     .get('/', () => 'Hi Elysia')
+//     .get('/id/:id', ({ params: { id } }) => id)
+//     .post('/mirror', ({ body }) => body, {
+//         body: t.Object({
+//             id: t.Number(),
+//             name: t.String()
+//         })
+//     })
+//     .listen(8080)
+
+// export type App = typeof app

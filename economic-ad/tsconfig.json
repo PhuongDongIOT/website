@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,9 +23,35 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "~/*": ["./src/*"],
+      "~layouts/*": ["./src/layouts/*"],      
+      "~components/*": ["./src/components/*"],
+      "~hooks/*": ["./src/hooks/*"],
+      "~utils/*": ["./src/utils/*"],      
+      "~state/*": ["./src/states/*"],
+      "~helpers/*": ["./src/helpers/*"],
+      "~redux/*": ["./src/redux/*"],
+      "~pages/*": ["./src/pages/*"],
+      "~styles/*": ["./src/styles/*"],
+      "~apis/*": ["./src/apis/*"],
+      "~types/*": ["./src/types/*"],
+      "~constants/*": ["./src/constants/*"],
+      "~i18n/*": ["./src/i18n/*"],
+      "~configs/*": ["./src/configs/*"],
+      "~views/*": ["./src/views/*"],
+      "~addons/*": ["./src/addons/*"],
+      "~stories/*": ["./src/stories/*"],
+      "~lib/*": ["./src/lib/*"],
+      "~actions/*": ["./src/actions/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "build/types/**/*.ts" ],
+  "exclude": [
+    "node_modules"
+  ]
 }
