@@ -1,4 +1,5 @@
 import React from 'react';
+import { funcSaveElementForm } from '~helpers/forms/form.helper';
 // import { logger } from '~utils/logger.utils';
 
 import { TypeCommonProps, TypeValueString } from './TypeCommon';
@@ -11,8 +12,7 @@ function SelectCustom({ label, field, setValue, watch, errors, onChange, listPar
     const handleOnChange = onChange ? onChange : (value: any): void => {
         const valueSelect: TypeValueString = value;
         console.log(valueSelect)
-        // logger.info(`${field} - ${value}`)
-        setValue(field, valueSelect);
+        funcSaveElementForm(field, onChange, setValue, valueSelect, 'Input');
     }
 
     const colourOptions: ColourOption[] = [
@@ -29,7 +29,7 @@ function SelectCustom({ label, field, setValue, watch, errors, onChange, listPar
     ];
 
     return (
-        <SelectUi label={label} field={field} colourOptions={colourOptions} placeholder={'...'} defaultValue={watch('field') ?? []}
+        <SelectUi label={label} field={field} colourOptions={colourOptions} placeholder={'...'} defaultValue={watch(field) ?? []}
         onChange={handleOnChange}
         displayedError={{
             isShow: errors[field] ? true : false,

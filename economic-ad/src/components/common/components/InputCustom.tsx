@@ -1,5 +1,5 @@
 import React from 'react';
-// import { logger } from '~utils/logger.utils';
+import { funcSaveElementForm } from '~helpers/forms/form.helper';
 
 import { TypeCommonProps, TypeValueString } from './TypeCommon';
 
@@ -7,13 +7,7 @@ import { InputUi } from '~stories/InputUi';
 
 function InputCustom({ label, field, setValue, watch, errors, onChange, listParams, ...props }: TypeCommonProps) {
 
-    const handleOnChange = onChange ? onChange : (event: React.ChangeEvent<HTMLInputElement>): void => {
-
-        const valueInput: TypeValueString = event.target?.value ? `${event.target?.value}` : '';
-
-        // logger.info(`${field} - ${valueInput}`)
-        setValue(field, valueInput);
-    }
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>): void => funcSaveElementForm(field, onChange, setValue, event.target?.value, 'Input');
 
     return (
         <InputUi label={label} field={field} placeholder={'...'}

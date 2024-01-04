@@ -1,5 +1,5 @@
 import React from 'react';
-// import { logger } from '~utils/logger.utils';
+import { funcSaveElementForm } from '~helpers/forms/form.helper';
 
 import { TypeCommonProps, TypeValueString } from './TypeCommon';
 
@@ -7,11 +7,7 @@ import { TextAreaUi } from '~stories/TextAreaUi';
 
 function TextAreaCustom({ label, field, setValue, watch, errors, onChange, listParams, ...props }: TypeCommonProps) {
 
-    const handleOnChange = onChange ? onChange : (event: React.ChangeEvent<HTMLTextAreaElement>): void => {
-        const valueTextArea: TypeValueString = event.target?.value ? `${event.target?.value}` : '';
-        // logger.info(`${field} - ${valueTextArea}`)
-        setValue(field, valueTextArea);
-    }
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>): void => funcSaveElementForm(field, onChange, setValue, event.target?.value, 'Input');
 
     return (
         <TextAreaUi label={label} field={field} placeholder={'...'}

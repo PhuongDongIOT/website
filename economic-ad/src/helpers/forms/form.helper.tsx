@@ -34,11 +34,11 @@ class HandleSaveElementForm implements FormFactory {
 
     handleOnChangeForm() {
         if(this.onChange) {
-            this.onChange();
+            return this.onChange;
         } else {       
             logger.info(this.valueForm);
             this.handleChangeValueElement();
-            this.setValue(this.valueForm);
+            this.setValue(this.field, this.valueForm);
         }
     }
 }

@@ -1,0 +1,14 @@
+# docker-compose.yml
+version: '3.5'
+
+services:
+  app:
+    image: "oven/next"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: docker-next
+    # expose the right ports 
+    ports: ["3000:3000"]
+    # setup a host mounted volume to sync changes to the container
+    volumes: [".:/app", "/app/node_modules"]

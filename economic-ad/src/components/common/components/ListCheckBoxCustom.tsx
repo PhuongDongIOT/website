@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { funcSaveElementForm } from '~helpers/forms/form.helper';
 // import { logger } from '~utils/logger.utils';
 
 import { TypeCommonProps, TypeValueBoolean, TypeListCheckBox } from './TypeCommon';
@@ -7,22 +8,25 @@ import { ListCheckBoxUi } from '~stories/ListCheckBoxUi';
 
 function ListCheckBoxCustom({ legend, label, field, setValue, errors, onChange, listParams, type, ...props }: TypeCommonProps) {
 
-    const [listParamsCheckBox, setListParamsCheckBox] = useState<TypeListCheckBox[] | undefined>(listParams)
-    const handleOnChange = onChange ? onChange : (event: React.ChangeEvent<HTMLInputElement>, fieldFunction: string): void => {
+    const [listParamsCheckBox, setListParamsCheckBox] = useState<TypeListCheckBox[] | undefined>(listParams);
+
+    const handleOnChangeCustom = onChange ? onChange : (event: React.ChangeEvent<HTMLInputElement>, fieldFunction: string): void => {
 
         const valueInput: TypeValueBoolean = event.target?.checked ? true : false;        
-        let cLoneListParams = listParams ? [...listParams] : [];
+        let cloneListParams = listParams ? [...listParams] : [];
         if(type === 'radio') {
-            cLoneListParams.map((value: TypeListCheckBox) => value.checker = false)
+            cloneListParams.map((value: TypeListCheckBox) => value.checker = false)
         }
-        const indexFieldFunction = cLoneListParams.findIndex((value: TypeListCheckBox) => value.field === fieldFunction);
+        const indexFieldFunction = cloneListParams.findIndex((value: TypeListCheckBox) => value.field === fieldFunction);
         if(indexFieldFunction >= 0) {
-            cLoneListParams[indexFieldFunction].checker = valueInput;
+            cloneListParams[indexFieldFunction].checker = valueInput;
         }
-        // logger.info(`${fieldFunction} - ${valueInput}`)
-        setListParamsCheckBox(cLoneListParams)
-        setValue(field, cLoneListParams);
+        
+        setListParamsCheckBox(cloneListParams)
+        setValue(field, cloneListParams);
     }
+
+    const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>, fieldFunction: string): void => funcSaveElementForm(field, handleOnChangeCustom(event, fieldFunction), setValue, event.target?.value, 'Input')
 
     return (
         <ListCheckBoxUi legend={legend}  listParams={listParamsCheckBox} onChange={handleOnChange} type={type}

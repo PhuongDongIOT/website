@@ -28,7 +28,8 @@
     "start:tina": "tinacms build && next start",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "init:trigger": "bunx @trigger.dev/cli@latest init -k tr_dev_fczOa9rgQFVkhBxDEc9Q -t https://cloud.trigger.dev"
+    "init:trigger": "bunx @trigger.dev/cli@latest init -k tr_dev_fczOa9rgQFVkhBxDEc9Q -t https://cloud.trigger.dev",
+    "docker:up": "sudo docker compose up"
   },
   "dependencies": {
     "@clerk/nextjs": "^4.27.5",
@@ -131,7 +132,6 @@
     "eslint": "^8",
     "eslint-config-next": "latest",
     "eslint-plugin-storybook": "^0.6.15",
-    "husky": "^8.0.0",
     "postcss": "^8",
     "storybook": "^7.5.3",
     "tailwindcss": "^3",
