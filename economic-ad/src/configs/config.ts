@@ -1,4 +1,3 @@
-'use server'
 import { Type } from '@sinclair/typebox';
 import { Value } from '@sinclair/typebox/value';
 
